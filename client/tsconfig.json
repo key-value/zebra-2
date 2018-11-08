@@ -1,0 +1,11 @@
+{
+  "extends": "../tsconfig.json",
+  "compilerOptions": {
+    "rootDir": ".",
+    "strict": true,
+    "target": "es6",
+    "lib": ["dom", "es6"],
+    "module": "es6"
+  },
+  "include": ["**/*.ts", "**/*.js", "../typings"]
+}
