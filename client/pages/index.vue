@@ -1,8 +1,12 @@
 <template>
   <el-container class="main-container">
-    <el-header>Header111</el-header>
+    <el-header>
+      <headerbar></headerbar>
+    </el-header>
     <el-container>
-      <el-aside width="280px">Aside</el-aside>
+      <el-aside width="280px">
+        <asidebar></asidebar>
+      </el-aside>
       <el-main>Main</el-main>
     </el-container>
   </el-container>
@@ -10,10 +14,14 @@
 
 <script>
 import Logo from '~/components/Logo.vue'
+import headerbar from '~/components/system/headbar.vue'
+import asidebar from '~/components/system/asidebar.vue'
 
 export default {
   components: {
-    Logo
+    Logo,
+    headerbar,
+    asidebar
   }
 }
 </script>
