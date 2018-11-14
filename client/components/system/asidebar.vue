@@ -1,4 +1,4 @@
-<template>
+<template  >
     <el-menu default-active="2"
              @open="handleOpen"
              @close="handleClose">
@@ -22,10 +22,23 @@
             <i class="el-icon-setting"></i>
             <span slot="title">日程</span>
         </el-menu-item>
+        <el-menu v-for="(navbody, i) in navList"
+                 :key="navbody.index">
+            <el-menu-item>
+                <i class="el-icon-setting">{{i}}</i>
+                <span slot="title">日程</span>
+            </el-menu-item>
+        </el-menu>
     </el-menu>
 </template>
 
 <script lang="ts">
 import Vue from 'vue'
-export default Vue.extend({})
+export default Vue.extend({
+    data : function () {
+        navList: Array;
+    }
+})
+
+
 </script>
