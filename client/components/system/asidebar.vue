@@ -1,8 +1,6 @@
 <template  >
-    <el-menu default-active="2"
-             @open="handleOpen"
-             @close="handleClose">
-        <el-menu-item index="1">
+    <el-menu default-active="1">
+        <el-menu-item index="6">
             <i class="el-icon-tickets"></i>
             <span slot="title">首页</span>
         </el-menu-item>
@@ -22,23 +20,35 @@
             <i class="el-icon-setting"></i>
             <span slot="title">日程</span>
         </el-menu-item>
-        <el-menu v-for="(navbody, i) in navList"
-                 :key="navbody.index">
-            <el-menu-item>
-                <i class="el-icon-setting">{{i}}</i>
-                <span slot="title">日程</span>
+        <el-menu v-for="navbody in navList" :key="navbody.index">
+            <el-menu-item index="navbody.index" >
+                <i class="el-icon-setting"></i>
+                <span slot="title">{{navbody.title}}  </span>
             </el-menu-item>
         </el-menu>
     </el-menu>
 </template>
 
 <script lang="ts">
-import Vue from 'vue'
-export default Vue.extend({
-    data : function () {
-        navList: Array;
+import Component, { Getter } from 'nuxt-class-component';
+import Vue from 'vue';
+import { NavBody } from '../../store';
+
+@Component({})
+export default class Asidebar extends Vue {
+    @Getter navList: NavBody[] = new Array<NavBody>();
+
+    created() {
+        const a = new NavBody(1, '日程', '1', '1');
+        this.navList.push(a);
     }
-})
+}
+
+// export default Vue.extend({
+//     data : function () {
+//         navList: Array;
+//     }
+// })
 
 
 </script>

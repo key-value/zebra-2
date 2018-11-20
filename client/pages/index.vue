@@ -1,5 +1,5 @@
 <template>
-  <el-container class="main-container">
+  <el-container class="main-;container">
     <el-header>
       <headerbar></headerbar>
     </el-header>
