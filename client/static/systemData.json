@@ -1,0 +1,34 @@
+{
+    "asidebar": [
+        {
+            "index": "1",
+            "icon": "el-icon-tickets",
+            "url": "@/#/default",
+            "title": "首页"
+        },
+        {
+            "index": "2",
+            "icon": "el-icon-location",
+            "url": "@/#/default",
+            "title": "目标"
+        },
+        {
+            "index": "3",
+            "icon": "el-icon-menu",
+            "url": "@/#/default",
+            "title": "计划"
+        },
+        {
+            "index": "4",
+            "icon": "el-icon-document",
+            "url": "@/#/default",
+            "title": "任务"
+        },
+        {
+            "index": "5",
+            "icon": "el-icon-setting",
+            "url": "@/#/default",
+            "title": "日程"
+        }
+    ]
+}

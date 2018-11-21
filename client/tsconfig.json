@@ -5,8 +5,10 @@
     "strict": true,
     "target": "es2017",
     "lib": ["dom", "es6", "es2015.promise"],
-    "module": "commonjs",
+    "module": "es6",
     "moduleResolution": "node",
   },
-  "include": ["**/*.ts", "**/*.js", "../typings"]
+  "paths":{
+    "static/*":["/client/static/*"],
+  }
 }
