@@ -1,12 +1,12 @@
 <template  >
     <el-menu :default-active="defaultActive">
         <el-menu v-for="navbody in navList" :key="navbody.index">
-            <el-menu-item :index="navbody.index">
-                <nuxt-link :to="navbody.url">
+            <nuxt-link :to="navbody.url">
+                <el-menu-item :index="navbody.index">
                     <i :class="navbody.icon"></i>
                     <span slot="title">{{navbody.title}}</span>
-                </nuxt-link>
-            </el-menu-item>
+                </el-menu-item>
+            </nuxt-link>
         </el-menu>
     </el-menu>
 </template>
