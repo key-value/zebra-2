@@ -7,7 +7,9 @@
       <el-aside width="280px">
         <asidebar></asidebar>
       </el-aside>
-      <el-main>Main</el-main>
+      <el-main>
+        <nuxt-child :key="$route.name"/>
+      </el-main>
     </el-container>
   </el-container>
 </template>
