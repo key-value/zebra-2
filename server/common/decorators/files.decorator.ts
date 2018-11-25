@@ -1,11 +1,11 @@
 import { BadRequestException, createRouteParamDecorator } from '@nestjs/common'
 import { Request } from 'express'
+import { Response as ExpressResponse } from 'express-serve-static-core'
 import * as _ from 'lodash'
 import * as mime from 'mime-types'
 import * as multer from 'multer'
 import * as path from 'path'
 import * as uuid from 'uuid'
-
 /**
  * Injects all uploaded files.
  * Must be applied on a controller method parameter.
@@ -33,7 +33,7 @@ export const Files = createRouteParamDecorator(
       }),
       fileFilter: (req: Request, file, cb) => {
         if (!extensionAllowed.includes(mime.extension(file.mimetype))) {
-          return cb(new Error('Extension not allowed'), null)
+          return cb(new Error('Extension not allowed'), false)
         }
 
         const { tw, th, sw, sh, mw, mh, lw, lh } = req.query
@@ -61,7 +61,7 @@ export const Files = createRouteParamDecorator(
         }
 
         const failedKeys = _(req.query)
-          .map((v, k) => (v > maxDimension[k] ? k : undefined))
+          .map((v, k) => (v > (maxDimension as any)[k] ? k : undefined))
           .compact()
           .value()
 
@@ -70,7 +70,7 @@ export const Files = createRouteParamDecorator(
               new Error(
                 `${failedKeys.join(', ')} in query params are not acceptable.`
               ),
-              null
+              false
             )
           : cb(null, true)
       }
@@ -81,7 +81,7 @@ export const Files = createRouteParamDecorator(
         : { fieldName: 'files', multerOptions: defaultMulterOptions, ...args }
     const upload = multer(args.multerOptions).any()
     return new Promise((resolve, reject) => {
-      upload(request, null, err => {
+      return upload(request, null as any, (err: any) => {
         if (err) return reject(new BadRequestException(err.message))
         return resolve(request.files)
       })
