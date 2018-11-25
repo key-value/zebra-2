@@ -18,8 +18,8 @@ import Vue from 'vue'
 const asidebarDataName = require('static/systemData.json')
 @Component({})
 export default class Asidebar extends Vue {
-    navList: any[] = asidebarDataName.asidebar
-    defaultActive: String = '1'
+  navList: any[] = asidebarDataName.asidebar
+  defaultActive: String = '1'
 }
 
 // export default Vue.extend({

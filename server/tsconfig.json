@@ -1,0 +1,12 @@
+{
+    "extends": "../tsconfig.json",
+    "compilerOptions": {
+      "noImplicitAny": false,
+      "outDir": "../dist",
+      "target": "es2017",
+      "module": "commonjs",
+      "lib": ["dom", "es6", "es2015.promise"],
+    },
+    "include": ["**/*.ts"]
+  }
+  

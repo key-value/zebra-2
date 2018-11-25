@@ -2,8 +2,10 @@
   "compilerOptions": {
     "allowJs": true,
     "allowSyntheticDefaultImports": true,
+    //typeorm配置
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
+    
     "sourceMap": true,
     "moduleResolution": "node"
   },
