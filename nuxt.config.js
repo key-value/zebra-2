@@ -1,4 +1,5 @@
 const pkg = require('./package')
+const path = require('path');
 
 module.exports = {
   mode: 'spa',
@@ -55,7 +56,9 @@ module.exports = {
    */
   modules: [
     // Doc: https://github.com/nuxt-community/axios-module#usage
-    '@nuxtjs/axios','@/plugins/typescript'
+    '@nuxtjs/axios',
+    '@/plugins/typescript',
+    ['@nuxtjs/dotenv', { path: path.resolve('.') }]
   ],
   /*
    ** Axios module configuration

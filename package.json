@@ -19,10 +19,12 @@
     "@nestjs/typeorm": "^5.2.2",
     "@nuxtjs/axios": "^5.3.6",
     "@nuxtjs/dotenv": "^1.2.1",
+    "@types/morgan": "^1.7.35",
     "cross-env": "^5.2.0",
     "element-ui": "^2.4.6",
     "express": "^4.16.3",
     "lodash": "^4.17.11",
+    "morgan": "^1.9.1",
     "mysql": "^2.16.0",
     "nestjs-extensions": "^0.29.0",
     "nuxt": "^2.0.0",
@@ -37,6 +39,7 @@
     "typeorm": "^0.2.9"
   },
   "devDependencies": {
+    "@nestjs/swagger": "^2.5.1",
     "@types/express-session": "^1.15.11",
     "@types/lodash": "^4.14.118",
     "@types/mime-types": "^2.1.0",

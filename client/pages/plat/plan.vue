@@ -2,7 +2,7 @@
   <div>
     <el-row :gutter="12">
       <el-col :span="6"  v-for="(item, index) in tableData" :key="index">
-        <el-card shadow="hover">213鼠标悬浮时显示</el-card>
+        <el-card shadow="hover">21鼠标悬浮时显示</el-card>
       </el-col>
     </el-row>
   </div>
