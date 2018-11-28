@@ -35,6 +35,10 @@ module.exports = {
   loading: {
     color: '#fff'
   },
+  /**
+   * Specify build directory
+   */
+  buildDir: 'server/build',
 
   /**
    * Specify nuxt source directory
@@ -74,9 +78,14 @@ module.exports = {
     /*
      ** You can extend webpack config here
      */
-    extend(config, ctx) {
-      // Run ESLint on save
-
-    }
+    vendor: [
+      'axios',
+      'vuetify',
+      'vee-validate',
+      'nuxt-class-component',
+      'vue-class-component',
+      'vue-property-decorator',
+      'vuex-class'
+    ]
   }
 }
