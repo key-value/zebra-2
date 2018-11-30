@@ -1,4 +1,4 @@
-import { BadRequestException, createRouteParamDecorator } from '@nestjs/common'
+import { BadRequestException, createParamDecorator } from '@nestjs/common'
 import { Request } from 'express'
 import { Response as ExpressResponse } from 'express-serve-static-core'
 import * as _ from 'lodash'
@@ -10,7 +10,7 @@ import * as uuid from 'uuid'
  * Injects all uploaded files.
  * Must be applied on a controller method parameter.
  */
-export const Files = createRouteParamDecorator(
+export const Files = createParamDecorator(
   async (
     args: string | { fieldName: string; multerOptions: multer.Options },
     request: Request

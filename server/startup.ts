@@ -4,13 +4,13 @@ import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger'
 import * as cors from 'cors'
 import * as express from 'express'
 import * as morgan from 'morgan'
-import {
-//   ApplicationExceptionFilter,
-  AuthGuard,
-//   AuthorizationCheckerFn,
-//   IndicativePipe,
-//   IndicativePipeConfiguration
-} from 'nestjs-extensions'
+// import {
+// //   ApplicationExceptionFilter,
+//   AuthGuard,
+// //   AuthorizationCheckerFn,
+// //   IndicativePipe,
+// //   IndicativePipeConfiguration
+// } from 'nestjs-extensions'
 import { Builder, Nuxt } from 'nuxt'
 
 const session = require('cookie-session')

@@ -3,7 +3,7 @@ import 'reflect-metadata'
 import 'source-map-support/register'
 
 import { ApplicationModule } from './app/app.module'
-import { uniqueEmail } from './common/rules'
+// import { uniqueEmail } from './common/rules'
 import { Startup, StartupConfiguration } from './startup'
 
 const { NODE_ENV = 'development', PORT = 4200 } = process.env
@@ -18,7 +18,7 @@ const config: StartupConfiguration = {
       string: 'The {{field}} field must be a string.'
     },
     customRules: {
-      uniqueEmail
+      // uniqueEmail
     }
   }
 }
