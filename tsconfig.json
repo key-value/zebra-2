@@ -1,14 +1,14 @@
 {
-  "compilerOptions": {
-    "allowJs": true,
-    "allowSyntheticDefaultImports": true,
-    //typeorm配置
-    "emitDecoratorMetadata": true,
-    "experimentalDecorators": true,
-    
-    "sourceMap": true,
-    "moduleResolution": "node"
-  },
-  "exclude": ["node_modules"],
-  "include": ["**/*.ts", "**/*.js", "../typings", "**.*.d.ts"]
+    "compilerOptions": {
+        "allowJs": true,
+        "allowSyntheticDefaultImports": true,
+        //typeorm配置
+        "emitDecoratorMetadata": true,
+        "experimentalDecorators": true,
+
+        "sourceMap": true,
+        "moduleResolution": "node"
+    },
+    "exclude": ["node_modules", "./server/build"],
+    "include": ["**/*.ts", "**/*.js", "../typings", "**.*.d.ts"]
 }

@@ -35,7 +35,10 @@ export class Startup {
     await this.configureExpressSettings(server)
     await this.configureExpressMiddleware(server)
 
-    const app = await NestFactory.create(this.config.ApplicationModule, server)
+    const app = await NestFactory.create(
+            this.config.ApplicationModule,
+            server
+        )
     app.setGlobalPrefix('api')
     await this.configureNestGlobals(app)
     await this.configureNestSwagger(app)
@@ -53,32 +56,32 @@ export class Startup {
     app.use(morgan('dev'))
     app.use(cors({ origin: true, credentials: true }))
     app.use(
-      session({
-        name: '__session',
-        keys: [process.env.SECRET, 'no-keys'],
-        maxAge: 24 * 60 * 60 * 1000, // 24 hours
-        httpOnly: true
-      })
-    )
+            session({
+              name: '__session',
+              keys: [process.env.SECRET, 'no-keys'],
+              maxAge: 24 * 60 * 60 * 1000, // 24 hours
+              httpOnly: true
+            })
+        )
   }
 
   private async configureNestGlobals (app: INestApplication) {
-    // app.useGlobalPipes(
-    //   new IndicativePipe(this.config.indicative, this.reflector)
-    // )
-    // app.useGlobalFilters(new ApplicationExceptionFilter())
-    // if (this.config.authorizationChecker) {
-    //   app.useGlobalGuards(
-    //     new AuthGuard(this.config.authorizationChecker, this.reflector)
-    //   )
-    // }
+        // app.useGlobalPipes(
+        //   new IndicativePipe(this.config.indicative, this.reflector)
+        // )
+        // app.useGlobalFilters(new ApplicationExceptionFilter())
+        // if (this.config.authorizationChecker) {
+        //   app.useGlobalGuards(
+        //     new AuthGuard(this.config.authorizationChecker, this.reflector)
+        //   )
+        // }
   }
 
   private async configureNestSwagger (app: INestApplication) {
     const options = new DocumentBuilder()
-      .setBasePath('/api')
-      .setTitle('Simple Todos')
-      .build()
+            .setBasePath('/api')
+            .setTitle('Simple Todos')
+            .build()
     const document = SwaggerModule.createDocument(app, options)
     SwaggerModule.setup('/api/docs', app, document)
   }

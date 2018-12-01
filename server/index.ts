@@ -1,7 +1,7 @@
+import consola from 'consola'
 import 'dotenv/config'
 import 'reflect-metadata'
 import 'source-map-support/register'
-
 import { ApplicationModule } from './app/app.module'
 // import { uniqueEmail } from './common/rules'
 import { Startup, StartupConfiguration } from './startup'
@@ -24,12 +24,12 @@ const config: StartupConfiguration = {
 }
 
 new Startup(config).main().then(
-  async ({ app, server }) => {
-    await app.listen(+PORT)
-    const nuxt = await Startup.configureNuxt()
-    if (NODE_ENV !== 'production') await Startup.configureNuxtBuilder(nuxt)
-    app.use(nuxt.render)
-  },
+async ({ app, server }) => {
+  const nuxt = await Startup.configureNuxt()
+  if (NODE_ENV !== 'production') await Startup.configureNuxtBuilder(nuxt)
+  app.use(nuxt.render)
+  await app.listen(+PORT)
+},
   e => {
     console.error(e)
     process.exit(1)
@@ -38,5 +38,4 @@ new Startup(config).main().then(
 
 process.on('unhandledRejection', e => {
   console.error(`[UnhandledRejection]`, e)
-
 })

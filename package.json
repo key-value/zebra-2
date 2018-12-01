@@ -63,7 +63,7 @@
       "server",
       "nuxt.config.js"
     ],
-    "ext": "js ts vue",
+    "ext": "js ts",
     "ignore": [
       "server/**/*.spec.ts",
       "server/build/"
