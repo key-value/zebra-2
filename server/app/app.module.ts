@@ -1,4 +1,4 @@
-import { Global, Module } from '@nestjs/common'
+import { Global, Module as CommonModule } from '@nestjs/common'
 import { TypeOrmModule } from '@nestjs/typeorm'
 
 const {
@@ -24,7 +24,7 @@ const {
 } = process.env as any
 
 @Global()
-@Module({
+@CommonModule({
   modules: [
     TypeOrmModule.forRoot({
       host: TYPEORM_HOST,
