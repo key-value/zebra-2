@@ -12,6 +12,8 @@ import * as morgan from 'morgan'
 // //   IndicativePipeConfiguration
 // } from 'nestjs-extensions'
 import { Builder, Nuxt } from 'nuxt'
+import { from } from 'rxjs'
+import { swaggerUi } from 'swagger-ui-express'
 
 const session = require('cookie-session')
 const nuxtConfig = require('../nuxt.config')
@@ -86,6 +88,8 @@ export class Startup {
             .build()
     const document = SwaggerModule.createDocument(app, options)
     SwaggerModule.setup('api', app, document)
+    // app.use('/swagger', swaggerUi.serve, swaggerUi.setup(document))
+    // app.use('/api-docs', (req, res, next) => res.send(document))
 
   }
 }

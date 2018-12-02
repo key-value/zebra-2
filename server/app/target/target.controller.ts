@@ -1,15 +1,15 @@
 import { Body, Controller, Delete, Get, Param, Post, Put, Query } from '@nestjs/common'
-import { ApiOperation, ApiUseTags } from '@nestjs/swagger'
+import { ApiImplicitBody, ApiOperation, ApiUseTags } from '@nestjs/swagger'
 
 @ApiUseTags('target')
-@Controller('target')
+@Controller('api/target')
 export class TargetController {
   constructor () {
 
   }
-  @Post()
+  @Get()
   @ApiOperation({ title: 'Returns API status' })
-  async create () {
-    return 2
+  create (): string {
+    return '2'
   }
 }
