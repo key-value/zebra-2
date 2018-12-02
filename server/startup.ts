@@ -79,11 +79,14 @@ export class Startup {
 
   private async configureNestSwagger (app: INestApplication) {
     const options = new DocumentBuilder()
-            .setBasePath('/api')
             .setTitle('Simple Todos')
+            .setBasePath('/api')
+            .setVersion('1.0')
+            .addTag('target')
             .build()
     const document = SwaggerModule.createDocument(app, options)
-    SwaggerModule.setup('/api/docs', app, document)
+    SwaggerModule.setup('api', app, document)
+
   }
 }
 

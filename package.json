@@ -68,6 +68,6 @@
       "server/**/*.spec.ts",
       "server/build/"
     ],
-    "exec": "ts-node --type-check --project server/tsconfig.json server"
+    "exec": "ts-node --inspect-brk  --type-check --project server/tsconfig.json server"
   }
 }

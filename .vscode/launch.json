@@ -7,11 +7,16 @@
         {
             "type": "node",
             "request": "launch",
-            "name": "启动程序",
-            "program": "${workspaceFolder}\\dist",
-            "outFiles": [
-                "${workspaceFolder}/**/*.js"
-            ]
+            "name": "Launch via NPM",
+            "runtimeExecutable": "npm",
+            "runtimeArgs": [
+                "run-script",
+                "debug", 
+                "-r",
+                "--nolazy", 
+                "ts-node/register"
+            ],
+            "port": 9229
         }
     ]
 }
