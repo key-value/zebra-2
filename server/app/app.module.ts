@@ -1,6 +1,8 @@
-import { Global, Module as CommonModule } from '@nestjs/common'
+import 'reflect-metadata'
+import { Global, Module } from '@nestjs/common'
 import { TypeOrmModule } from '@nestjs/typeorm'
-
+import { TargetModule } from './target/target.module'
+import { AppController } from './app.controller'
 const {
   MAILER_TYPE,
   MAILER_ETHEREAL_USERNAME,
@@ -24,7 +26,7 @@ const {
 } = process.env as any
 
 @Global()
-@CommonModule({
+@Module({
   modules: [
     TypeOrmModule.forRoot({
       host: TYPEORM_HOST,
@@ -37,5 +39,6 @@ const {
       synchronize: TYPEORM_SYNCHRONIZE === 'true'
     })
   ],
+  imports: [TargetModule],
 })
 export class ApplicationModule {}

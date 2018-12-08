@@ -1,12 +1,11 @@
-import consola from 'consola'
+import * as express from 'express'
 import 'dotenv/config'
 import 'reflect-metadata'
 import 'source-map-support/register'
 import { ApplicationModule } from './app/app.module'
 // import { uniqueEmail } from './common/rules'
 import { Startup, StartupConfiguration } from './startup'
-
-const { NODE_ENV = 'development', PORT = 4200 } = process.env
+const { NODE_ENV = 'development', PORT = 6333 } = process.env
 
 const config: StartupConfiguration = {
   ApplicationModule,
@@ -24,12 +23,12 @@ const config: StartupConfiguration = {
 }
 
 new Startup(config).main().then(
-async ({ app, server }) => {
-  const nuxt = await Startup.configureNuxt()
-  if (NODE_ENV !== 'production') await Startup.configureNuxtBuilder(nuxt)
-  app.use(nuxt.render)
-  await app.listen(+PORT)
-},
+  async ({ app, server, nuxt }) => {
+    if (NODE_ENV !== 'production')
+      await Startup.configureNuxtBuilder(nuxt)
+    // app.use(nuxt.render)
+    await app.listen(+PORT, () => { console.log(`${PORT}`) })
+  },
   e => {
     console.error(e)
     process.exit(1)

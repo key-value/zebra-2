@@ -11,12 +11,12 @@
             "runtimeExecutable": "npm",
             "runtimeArgs": [
                 "run-script",
-                "debug", 
-                "-r",
-                "--nolazy", 
-                "ts-node/register"
+                "dev",
             ],
-            "port": 9229
+            "port": 15300,
+            "timeout": 100000,
+            "cwd": "${workspaceFolder}",
+            "console": "integratedTerminal",
         }
     ]
 }

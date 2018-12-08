@@ -37,15 +37,14 @@ export class Startup {
     await this.configureExpressSettings(server)
     await this.configureExpressMiddleware(server)
 
-    const app = await NestFactory.create(
-            this.config.ApplicationModule,
-            server
-        )
+    const nuxt = await Startup.configureNuxt()
+    server.get(/^(?!\/?(api|test|swagger-api)).+$/, (request, response) => nuxt.render(request, response))
+    const app = await NestFactory.create(this.config.ApplicationModule, server)
     app.setGlobalPrefix('api')
     await this.configureNestGlobals(app)
     await this.configureNestSwagger(app)
 
-    return { app, server }
+    return { app, server, nuxt }
   }
 
   private async configureExpressSettings (app: express.Application) {
@@ -58,39 +57,38 @@ export class Startup {
     app.use(morgan('dev'))
     app.use(cors({ origin: true, credentials: true }))
     app.use(
-            session({
-              name: '__session',
-              keys: [process.env.SECRET, 'no-keys'],
-              maxAge: 24 * 60 * 60 * 1000, // 24 hours
-              httpOnly: true
-            })
-        )
+      session({
+        name: '__session',
+        keys: [process.env.SECRET, 'no-keys'],
+        maxAge: 24 * 60 * 60 * 1000, // 24 hours
+        httpOnly: true
+      })
+    )
   }
 
   private async configureNestGlobals (app: INestApplication) {
-        // app.useGlobalPipes(
-        //   new IndicativePipe(this.config.indicative, this.reflector)
-        // )
-        // app.useGlobalFilters(new ApplicationExceptionFilter())
-        // if (this.config.authorizationChecker) {
-        //   app.useGlobalGuards(
-        //     new AuthGuard(this.config.authorizationChecker, this.reflector)
-        //   )
-        // }
+    // app.useGlobalPipes(
+    //   new IndicativePipe(this.config.indicative, this.reflector)
+    // )
+    // app.useGlobalFilters(new ApplicationExceptionFilter())
+    // if (this.config.authorizationChecker) {
+    //   app.useGlobalGuards(
+    //     new AuthGuard(this.config.authorizationChecker, this.reflector)
+    //   )
+    // }
   }
 
   private async configureNestSwagger (app: INestApplication) {
     const options = new DocumentBuilder()
-            .setTitle('Simple Todos')
-            .setBasePath('/api')
-            .setVersion('1.0')
-            .addTag('target')
-            .build()
+      .setTitle('Simple Todos')
+      .setVersion('1.0')
+      .addTag('target')
+      .setBasePath('/api')
+      .build()
     const document = SwaggerModule.createDocument(app, options)
-    SwaggerModule.setup('api', app, document)
+    SwaggerModule.setup('swagger-api', app, document)
     // app.use('/swagger', swaggerUi.serve, swaggerUi.setup(document))
     // app.use('/api-docs', (req, res, next) => res.send(document))
-
   }
 }
 

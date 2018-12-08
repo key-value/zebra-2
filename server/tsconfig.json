@@ -3,9 +3,9 @@
     "compilerOptions": {
         "noImplicitAny": false,
         "outDir": "../dist",
-        "target": "es2017",
+        "target": "es6",
         "module": "commonjs",
-      
+        "baseUrl": "./"
     },
     "include": ["**/*.ts"]
 }
