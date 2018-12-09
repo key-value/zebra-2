@@ -13,10 +13,21 @@
                 "run-script",
                 "dev",
             ],
-            "port": 15300,
+            "restart": true,
+            "port": 4500,
             "timeout": 100000,
             "cwd": "${workspaceFolder}",
             "console": "integratedTerminal",
+            "trace": true,
+            "protocol": "inspector"
+        }, {
+            "type": "node",
+            "request": "attach",
+            "name": "Attach to Port",
+            "address": "localhost",
+            "port": 4500,
+            "protocol": "inspector",
+            "trace": true
         }
     ]
 }

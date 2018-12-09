@@ -9,6 +9,7 @@
         "sourceMap": true,
         "moduleResolution": "node",
         "target": "es6",
+        "baseUrl": "./server/"
     },
     "exclude": ["node_modules", "./server/build"],
     "include": ["**/*.ts", "**/*.js", "../typings", "**.*.d.ts"]

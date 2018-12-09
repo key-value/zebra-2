@@ -38,7 +38,7 @@ export class Startup {
     await this.configureExpressMiddleware(server)
 
     const nuxt = await Startup.configureNuxt()
-    server.get(/^(?!\/?(api|test|swagger-api)).+$/, (request, response) => nuxt.render(request, response))
+    server.get(/^(?!\/?(api|test|swagger-api|json)).+$/, (request, response) => nuxt.render(request, response))
     const app = await NestFactory.create(this.config.ApplicationModule, server)
     app.setGlobalPrefix('api')
     await this.configureNestGlobals(app)

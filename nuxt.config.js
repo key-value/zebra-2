@@ -63,7 +63,6 @@ module.exports = {
     '@nuxtjs/axios',
     '@/plugins/typescript',
     ['@nuxtjs/dotenv', { path: path.resolve('.') }],
-    ['@nuxtjs/proxy', { pathRewrite: { '^/api' : '/api/v1' } }],
   ],
   /*
    ** Axios module configuration

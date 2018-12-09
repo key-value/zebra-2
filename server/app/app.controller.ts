@@ -24,10 +24,10 @@ export class AppController {
       _(files)
         .map(({ path }) => {
           return [
-            this.resizeImage(path, path.replace('.',    '_t.'), { w: tw, h: th }),
-            this.resizeImage(path, path.replace('.',    '_s.'), { w: sw, h: sh }),
-            this.resizeImage(path, path.replace('.',    '_m.'), { w: mw, h: mh }),
-            this.resizeImage(path, path.replace('.',    '_l.'), { w: lw, h: lh })
+            this.resizeImage(path, path.replace('.', '_t.'), { w: tw, h: th }),
+            this.resizeImage(path, path.replace('.', '_s.'), { w: sw, h: sh }),
+            this.resizeImage(path, path.replace('.', '_m.'), { w: mw, h: mh }),
+            this.resizeImage(path, path.replace('.', '_l.'), { w: lw, h: lh })
           ]
         })
         .flatten()
