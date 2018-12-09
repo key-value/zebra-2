@@ -11,23 +11,12 @@
             "runtimeExecutable": "npm",
             "runtimeArgs": [
                 "run-script",
-                "dev",
+                "start:debug"
             ],
-            "restart": true,
-            "port": 4500,
-            "timeout": 100000,
+            "port": 3000,
             "cwd": "${workspaceFolder}",
             "console": "integratedTerminal",
-            "trace": true,
-            "protocol": "inspector"
-        }, {
-            "type": "node",
-            "request": "attach",
-            "name": "Attach to Port",
-            "address": "localhost",
-            "port": 4500,
-            "protocol": "inspector",
-            "trace": true
+            "protocol": "legacy"
         }
     ]
 }

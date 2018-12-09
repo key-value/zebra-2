@@ -1,16 +1,23 @@
 {
-    "compilerOptions": {
-        "allowJs": true,
-        "allowSyntheticDefaultImports": true,
-        //typeorm配置
-        "emitDecoratorMetadata": true,
-        "experimentalDecorators": true,
-
-        "sourceMap": true,
-        "moduleResolution": "node",
-        "target": "es6",
-        "baseUrl": "./server/"
-    },
-    "exclude": ["node_modules", "./server/build"],
-    "include": ["**/*.ts", "**/*.js", "../typings", "**.*.d.ts"]
+  "compilerOptions": {
+    "module": "commonjs",
+    "declaration": true,
+    "noImplicitAny": false,
+    "removeComments": true,
+    "noLib": false,
+    "allowSyntheticDefaultImports": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "target": "es6",
+    "sourceMap": true,
+    "outDir": "./dist",
+    "baseUrl": "./"
+  },
+  "include": [
+    "src/**/*"
+  ],
+  "exclude": [
+    "node_modules",
+    "**/*.spec.ts"
+  ]
 }
