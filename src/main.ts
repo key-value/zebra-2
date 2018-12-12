@@ -1,8 +1,33 @@
 import { NestFactory } from '@nestjs/core';
-import { AppModule } from './server/app.module';
+import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 
-async function bootstrap() {
-  const app = await NestFactory.create(AppModule);
-  await app.listen(3000);
-}
-bootstrap();
+import { Startup, StartupConfiguration } from './startup';
+import { ApplicationModule } from './server/app.module';
+// async function bootstrap() {
+//   const app = await NestFactory.create(AppModule);
+//   const options = new DocumentBuilder()
+//     .setTitle('Cats example')
+//     .setDescription('The cats API description')
+//     .setVersion('1.0')
+//     .build();
+//   const document = SwaggerModule.createDocument(app, options);
+//   SwaggerModule.setup('swagger-api', app, document);
+//   await app.listen(3000);
+// }
+// bootstrap();
+
+const { PORT = 4200 } = process.env;
+
+const config: StartupConfiguration = {
+  ApplicationModule,
+};
+
+new Startup(config).main().then(
+  async ({app, server }) => {
+    await app.listen(+PORT);
+  },
+  e => {
+    console.error(e);
+    process.exit(1);
+  },
+);
