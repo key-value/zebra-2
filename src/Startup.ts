@@ -39,7 +39,7 @@ export class Startup {
           .setBasePath('api')
           .build();
         const document = SwaggerModule.createDocument(app, options);
-        SwaggerModule.setup('/swagger-api/docs', app, document);
+        SwaggerModule.setup('/swaggerapi/', app, document);
       }
 }
 export interface StartupConfiguration {

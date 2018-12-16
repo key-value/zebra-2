@@ -24,7 +24,7 @@ const config: StartupConfiguration = {
 
 new Startup(config).main().then(
   async ({app, server }) => {
-    await app.listen(+PORT);
+    await app.listen(+PORT, () => {console.log(`${PORT}`); });
   },
   e => {
     console.error(e);
