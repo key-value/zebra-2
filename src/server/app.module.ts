@@ -15,6 +15,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
       password: '123456',
       database: 'zebra_two',
       synchronize: true,
+      entities: [ __dirname + '/models/*.js'],
     }),
   ],
 controllers: [AppController],
