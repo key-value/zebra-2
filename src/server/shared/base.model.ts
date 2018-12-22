@@ -1,9 +1,12 @@
-import { Table, Column, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  PrimaryGeneratedColumn,
+  UpdateDateColumn,
+  CreateDateColumn,
+} from 'typeorm';
 
 export class BaseModelVm {
   @PrimaryGeneratedColumn()
-  createAt?: Date;
-  @Column()
-  updateAt?: Date;
   Id?: number;
+  @CreateDateColumn() createdDate: Date;
+  @UpdateDateColumn() updatedDate: Date;
 }
