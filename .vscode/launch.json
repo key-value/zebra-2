@@ -11,12 +11,11 @@
             "runtimeExecutable": "npm",
             "runtimeArgs": [
                 "run-script",
-                "start:debug"
+                "start:debug",
             ],
-            "port": 4200,
             "cwd": "${workspaceFolder}",
             "console": "integratedTerminal",
-            "restart": true
+            "restart": true,
         }
     ]
 }

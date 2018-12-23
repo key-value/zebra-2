@@ -1,39 +1,40 @@
-import { INestApplication } from '@nestjs/common';
-import { NestFactory } from '@nestjs/core';
-import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
-import * as cors from 'cors';
-import * as express from 'express';
-import * as morgan from 'morgan';
-import { Builder, Nuxt } from 'nuxt';
+import { INestApplication } from '@nestjs/common'
+import { NestFactory } from '@nestjs/core'
+import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger'
+import * as cors from 'cors'
+import * as express from 'express'
+import * as morgan from 'morgan'
+import { Builder, Nuxt } from 'nuxt'
 
-import * as nuxtConfig from '../nuxt.config';
+import * as nuxtConfig from '../nuxt.config'
 export class Startup {
   constructor(private config: StartupConfiguration) {}
 
   async main() {
-    const server = express();
-    await this.configureExpressSettings(server);
-    await this.configureExpressMiddleware(server);
+    const server = express()
+    await this.configureExpressSettings(server)
+    await this.configureExpressMiddleware(server)
 
-    const nuxt = await this.configureNuxt();
+    const nuxt = await this.configureNuxt()
 
-    server.get(/^(?!\/?(api|test|swaggerapi)).+$/, (request, response) => nuxt.render(request, response));
-    const app = await NestFactory.create(this.config.ApplicationModule, server);
-    app.setGlobalPrefix('api');
-    await this.configureNestSwagger(app);
+    server.get(/^(?!\/?(api|test|swaggerapi)).+$/, (request, response) => {
+      nuxt.render(request, response)})
+    const app = await NestFactory.create(this.config.ApplicationModule, server)
+    app.setGlobalPrefix('api')
+    await this.configureNestSwagger(app)
 
-    return { app, server, nuxt };
+    return { app, server, nuxt }
   }
 
   private async configureExpressSettings(app: express.Application) {
-    app.set('etag', false);
-    app.set('trust proxy', true);
-    app.set('x-powered-by', false);
+    app.set('etag', false)
+    app.set('trust proxy', true)
+    app.set('x-powered-by', false)
   }
 
   private async configureExpressMiddleware(app: express.Application) {
-    app.use(morgan('dev'));
-    app.use(cors({ origin: true }));
+    app.use(morgan('dev'))
+    app.use(cors({ origin: true }))
   }
 
   private async configureNestSwagger(app: INestApplication) {
@@ -42,21 +43,21 @@ export class Startup {
       .setVersion('1.0')
       .setDescription('The Todos API description')
       .setBasePath('api')
-      .build();
-    const document = SwaggerModule.createDocument(app, options);
-    SwaggerModule.setup('/swaggerapi/', app, document);
+      .build()
+    const document = SwaggerModule.createDocument(app, options)
+    SwaggerModule.setup('/swaggerapi/', app, document)
   }
 
   private async configureNuxt() {
-    const isDev = (nuxtConfig.dev = process.env.NODE_ENV !== 'production');
-    const nuxt = new Nuxt(nuxtConfig);
+    const isDev = (nuxtConfig.dev = process.env.NODE_ENV !== 'production')
+    const nuxt = new Nuxt(nuxtConfig)
     if (isDev) {
-      const builder = new Builder(nuxt);
-      await builder.build();
+      const builder = new Builder(nuxt)
+      await builder.build()
     }
-    return nuxt;
+    return nuxt
   }
 }
 export interface StartupConfiguration {
-  ApplicationModule: any;
+  ApplicationModule: any
 }
