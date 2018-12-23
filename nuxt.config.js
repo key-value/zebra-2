@@ -36,7 +36,10 @@ module.exports = {
   /*
    ** Plugins to load before mounting the App
    */
-  plugins: ['@/plugins/element-ui'],
+  plugins: [  '@/plugins/element-ui','~/plugins/axios'],
   // specify additional nuxt modules
-  modules: ['~/modules/typescript.ts']
+  modules: ['@nuxtjs/axios','~/modules/typescript.ts'],
+  axios: {
+    baseURL: 'http://127.0.0.1:4200/api/',
+  }
 };

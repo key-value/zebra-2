@@ -23,6 +23,7 @@
     "@nestjs/core": "^5.4.0",
     "@nestjs/swagger": "^2.5.1",
     "@nestjs/typeorm": "^5.2.2",
+    "@nuxtjs/axios": "^5.3.6",
     "@types/morgan": "^1.7.35",
     "element-ui": "^2.4.11",
     "morgan": "^1.9.1",
