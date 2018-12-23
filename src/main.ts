@@ -23,7 +23,8 @@ const config: StartupConfiguration = {
 };
 
 new Startup(config).main().then(
-  async ({app, server }) => {
+  async ({app, server, nuxt }) => {
+    app.use(nuxt.render);
     await app.listen(+PORT, () => {console.log(`${PORT}`); });
   },
   e => {

@@ -13,10 +13,9 @@
                 "run-script",
                 "start:debug"
             ],
-            "port": 3000,
+            "port": 4200,
             "cwd": "${workspaceFolder}",
             "console": "integratedTerminal",
-            "protocol": "legacy",
             "restart": true
         }
     ]
