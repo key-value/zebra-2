@@ -1,8 +1,8 @@
-import { NestFactory } from '@nestjs/core';
-import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
+import { NestFactory } from '@nestjs/core'
+import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger'
 
-import { Startup, StartupConfiguration } from './startup';
-import { ApplicationModule } from './server/app.module';
+import { Startup, StartupConfiguration } from './startup'
+import { ApplicationModule } from './server/app.module'
 // async function bootstrap() {
 //   const app = await NestFactory.create(AppModule);
 //   const options = new DocumentBuilder()
@@ -16,19 +16,21 @@ import { ApplicationModule } from './server/app.module';
 // }
 // bootstrap();
 
-const { PORT = 4200 } = process.env;
+const { PORT = 4200 } = process.env
 
 const config: StartupConfiguration = {
   ApplicationModule,
-};
+}
 
 new Startup(config).main().then(
-  async ({app, server, nuxt }) => {
-    app.use(nuxt.render);
-    await app.listen(+PORT, () => {console.log(`${PORT}`); });
+  async ({ app, server, nuxt }) => {
+    app.use(nuxt.render)
+    await app.listen(+PORT, () => {
+      console.log(`${PORT}`)
+    })
   },
   e => {
-    console.error(e);
-    process.exit(1);
+    console.error(e)
+    process.exit(1)
   },
-);
+)

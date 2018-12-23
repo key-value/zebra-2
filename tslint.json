@@ -50,7 +50,8 @@
         ],
         "one-variable-per-declaration": [
             false
-        ]
+        ],
+        "semicolon": [true, "never"]
     },
     "rulesDirectory": []
 }
