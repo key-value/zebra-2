@@ -1,8 +1,8 @@
-import { ApiModelProperty, ApiModelPropertyOptional } from '@nestjs/swagger';
+import { ApiModelProperty, ApiModelPropertyOptional } from '@nestjs/swagger'
 
 export class CreateTargetDto {
     @ApiModelProperty({ required: true })
-    name: string;
+    targetName: string
 
-    @ApiModelPropertyOptional() description?: string;
+    @ApiModelPropertyOptional() description?: string
   }

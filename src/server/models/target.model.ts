@@ -1,15 +1,15 @@
-import { BaseModelVm } from './../shared/base.model';
-import { Long, Table, Column, Entity } from 'typeorm';
+import { BaseModelVm } from './../shared/base.model'
+import { Long, Table, Column, Entity } from 'typeorm'
 
 @Entity()
 export default class Target extends BaseModelVm {
-  constructor() {super(); }
+  constructor() {super() }
   @Column()
-  public TargetName: string;
+  public targetName: string
   @Column()
-  public state: number;
+  public state: number
   @Column({ nullable: true })
-  public UserId: number;
+  public UserId: number
   @Column()
-  public description: string;
+  public description: string
 }

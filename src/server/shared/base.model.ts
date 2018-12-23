@@ -2,11 +2,11 @@ import {
   PrimaryGeneratedColumn,
   UpdateDateColumn,
   CreateDateColumn,
-} from 'typeorm';
+} from 'typeorm'
 
 export class BaseModelVm {
   @PrimaryGeneratedColumn()
-  Id?: number;
-  @CreateDateColumn() createdDate: Date;
-  @UpdateDateColumn() updatedDate: Date;
+  id?: number
+  @CreateDateColumn() createdDate: Date
+  @UpdateDateColumn() updatedDate: Date
 }
