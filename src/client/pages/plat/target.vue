@@ -12,56 +12,85 @@
             <el-col :span="6">
                 <el-card shadow="hover">
                     <div slot="header" class="clearfix">
-                        <span>添加目标</span>
-                        <el-button
-                            v-on:click="saveTarget"
-                            style="float: right; padding: 3px 0"
-                            type="text"
-                        >保存</el-button>
+                        <el-button type="text" @click="dialogFormVisible = true">打开嵌套表单的 Dialog</el-button>
                     </div>
-                    <div>
-                        <el-input v-bind:text="currentTarget.targetName" placeholder="目标"></el-input>
-                        <div style="margin: 20px 0;"></div>
-                        <el-input
-                            type="textarea"
-                            v-bind:text="currentTarget.description"
-                            placeholder="描述下目标"
-                        ></el-input>
-                    </div>
+                    <div></div>
                 </el-card>
             </el-col>
         </el-row>
+
+        <el-dialog title="更新数据" :visible.sync="dialogFormVisible" :modalAppendToBody="false">
+            <el-form :model="currentTarget">
+                <el-form-item label="活动名称" :label-width="formLabelWidth">
+                    <el-input
+                        v-model="currentTarget.targetName"
+                        autocomplete="off"
+                        placeholder="目标"
+                    ></el-input>
+                </el-form-item>
+                <el-form-item label="活动区域" :label-width="formLabelWidth">
+                    <el-input
+                        type="textarea"
+                        v-model="currentTarget.description"
+                        placeholder="描述下目标"
+                    ></el-input>
+                </el-form-item>
+            </el-form>
+            <div slot="footer" class="dialog-footer">
+                <el-button @click="dialogFormVisible = false">取 消</el-button>
+                <el-button type="primary" @click="saveTarget">确 定</el-button>
+            </div>
+        </el-dialog>
+
+        
     </div>
 </template>
 
 <script>
 import { Component, Vue } from 'nuxt-property-decorator';
-@Component()
-export default class target extends Vue {
+@Component({
+    // tslint:disable-next-line:trailing-comma
+    components: {},
+})
+export default class Target extends Vue {
     data() {
         return {
             targetList: Array,
-            currentTarget: {
-                id: Number,
-                targetName: String,
-                description: String,
-            },
+            // currentTarget: {
+            //     id: Number,
+            //     targetName: String = "targetName",
+            //     description: String ="description",
+            // }
         };
     }
 
-    created() {
-    }
+    currentTarget = new TargetDto();
+    // id = 0;
+    // targetName = '';
+    // description = '';
+    dialogFormVisible = false;
+    formLabelWidth = '120px';
+    created() {}
     async asyncData({ $axios }) {
-        //console.log(this.targetList);
+        // console.log(this.targetList);
         const data = await $axios.$get('/target/all');
         console.log(data);
         return { targetList: data };
     }
 
     saveTarget() {
-        console.log(this.data)
-       this.$axios.$post('/target', {targetName:this.currentTarget.targetName,description: this.currentTarget.description});
+        console.log(this.data);
+        this.$axios.$post('/target', {
+            targetName: this.currentTarget.targetName,
+            description: this.currentTarget.description,
+        });
+        this.dialogFormVisible = false;
     }
+}
+export class TargetDto {
+    id = 0;
+    targetName = 'targetName';
+    description = 'description';
 }
 </script>
 
