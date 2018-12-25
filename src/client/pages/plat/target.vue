@@ -5,16 +5,24 @@
                 <el-card shadow="hover">
                     <div slot="header" class="clearfix">
                         <span>{{item.targetName}}</span>
+                        <div  style="float: right; padding: 3px 0">
+                        <el-dropdown >
+                            <span class="el-dropdown-link">下拉菜单
+                                <i class="el-icon-arrow-down el-icon--right"></i>
+                            </span>
+                            <el-dropdown-menu slot="dropdown">
+                                <el-dropdown-item></el-dropdown-item>
+                                <el-dropdown-item>编辑</el-dropdown-item>
+                                <el-dropdown-item>删除</el-dropdown-item>
+                            </el-dropdown-menu>
+                        </el-dropdown></div>
                     </div>
                     <div>{{item.description}}</div>
                 </el-card>
             </el-col>
             <el-col :span="6">
                 <el-card shadow="hover">
-                    <div slot="header" class="clearfix">
                         <el-button type="text" @click="dialogFormVisible = true">打开嵌套表单的 Dialog</el-button>
-                    </div>
-                    <div></div>
                 </el-card>
             </el-col>
         </el-row>
@@ -41,8 +49,6 @@
                 <el-button type="primary" @click="saveTarget">确 定</el-button>
             </div>
         </el-dialog>
-
-        
     </div>
 </template>
 
@@ -102,6 +108,15 @@ export class TargetDto {
 .item {
     margin-bottom: 18px;
 }
+
+  .clearfix:before,
+  .clearfix:after {
+    display: table;
+    content: "";
+  }
+  .clearfix:after {
+    clear: both
+  }
 
 .el-card {
     min-height: 220px;
