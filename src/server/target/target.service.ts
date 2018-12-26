@@ -1,4 +1,4 @@
-import { Injectable, Component } from '@nestjs/common'
+import { Injectable, Component, HttpException } from '@nestjs/common'
 import { Target } from '../models'
 import { InjectRepository } from '@nestjs/typeorm'
 import { Repository } from 'typeorm'
@@ -21,5 +21,15 @@ export default class TargetService {
     target.state = 0
     const installResult = await this.targetRepository.insert(target)
     console.log(installResult)
+  }
+
+  async update(id: number, name: string , description: string){
+    const target = await this.targetRepository.findOne(id)
+    if (target == null){
+      throw new HttpException(null, 404)
+    }
+    target.targetName = name
+    target.description = description
+    this.targetRepository.save(target)
   }
 }

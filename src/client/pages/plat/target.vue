@@ -12,7 +12,7 @@
                             </span>
                             <el-dropdown-menu slot="dropdown">
                                 <el-dropdown-item></el-dropdown-item>
-                                <el-dropdown-item>编辑</el-dropdown-item>
+                                <el-dropdown-item> <el-button type="text" @click="showTarget(item)">编辑</el-button></el-dropdown-item>
                                 <el-dropdown-item>删除</el-dropdown-item>
                             </el-dropdown-menu>
                         </el-dropdown></div>
@@ -22,13 +22,13 @@
             </el-col>
             <el-col :span="6">
                 <el-card shadow="hover">
-                        <el-button type="text" @click="dialogFormVisible = true">打开嵌套表单的 Dialog</el-button>
+                        <el-button type="text" @click="showTarget(null)">打开嵌套表单的 Dialog</el-button>
                 </el-card>
             </el-col>
         </el-row>
 
-        <el-dialog title="更新数据" :visible.sync="dialogFormVisible" :modalAppendToBody="false">
-            <el-form :model="currentTarget">
+        <el-dialog title="更新数据" :visible.sync="dialogFormVisible" :modalAppendToBody="false" width="45%">
+            <el-form :model="currentTarget" >
                 <el-form-item label="活动名称" :label-width="formLabelWidth">
                     <el-input
                         v-model="currentTarget.targetName"
@@ -37,7 +37,7 @@
                     ></el-input>
                 </el-form-item>
                 <el-form-item label="活动区域" :label-width="formLabelWidth">
-                    <el-input
+                    <el-input :rows="3"
                         type="textarea"
                         v-model="currentTarget.description"
                         placeholder="描述下目标"
@@ -54,6 +54,7 @@
 
 <script>
 import { Component, Vue } from 'nuxt-property-decorator';
+import { debug } from 'util';
 @Component({
     // tslint:disable-next-line:trailing-comma
     components: {},
@@ -83,6 +84,18 @@ export default class Target extends Vue {
         console.log(data);
         return { targetList: data };
     }
+    showTarget(target) {
+        if(target == null){
+            this.currentTarget.targetName = ''
+            this.currentTarget.description = ''
+            this.currentTarget.id=0
+        }else{
+            this.currentTarget.targetName = target.targetName
+            this.currentTarget.description = target.description
+            this.currentTarget.id = target.id
+        }
+        this.dialogFormVisible = true
+    }
 
     saveTarget() {
         console.log(this.data);
@@ -95,8 +108,8 @@ export default class Target extends Vue {
 }
 export class TargetDto {
     id = 0;
-    targetName = 'targetName';
-    description = 'description';
+    targetName = '';
+    description = '';
 }
 </script>
 

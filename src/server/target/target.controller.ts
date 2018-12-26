@@ -22,4 +22,7 @@ export class TargetController {
   async add(@Body() body: CreateTargetDto) {
     this.targetService.add(body.targetName, body.description)
   }
+  async update(@Body() body: CreateTargetDto) {
+    this.targetService.update(body.id, body.targetName, body.description)
+  }
 }
