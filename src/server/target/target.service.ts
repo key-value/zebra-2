@@ -26,10 +26,18 @@ export default class TargetService {
   async update(id: number, name: string , description: string){
     const target = await this.targetRepository.findOne(id)
     if (target == null){
-      throw new HttpException(null, 404)
+      throw new Error('Method not implemented.')
     }
     target.targetName = name
     target.description = description
     this.targetRepository.save(target)
+  }
+
+  async delete(id: any) {
+    const target = await this.targetRepository.findOne(id)
+    if (target == null){
+      throw new Error('Method not implemented.')
+    }
+    this.targetRepository.delete(target)
   }
 }
