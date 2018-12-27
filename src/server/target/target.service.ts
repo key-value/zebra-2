@@ -38,6 +38,6 @@ export default class TargetService {
     if (target == null){
       throw new Error('Method not implemented.')
     }
-    this.targetRepository.delete(target)
+    this.targetRepository.remove(target)
   }
 }

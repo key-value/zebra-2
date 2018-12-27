@@ -40,6 +40,12 @@ module.exports = {
   // specify additional nuxt modules
   modules: ['@nuxtjs/axios','~/modules/typescript.ts'],
   axios: {
-    baseURL: 'http://127.0.0.1:4200/api/',
+    // prefix: '/api/',
+    proxy: true, // Can be also an object with default options
+    baseURL: 'http://127.0.0.1:4200/',
+  },
+
+  proxy: {
+      '/api': { target: 'http://localhost:4200/api'}
   }
 };

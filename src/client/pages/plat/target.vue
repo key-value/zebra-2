@@ -16,7 +16,8 @@
                                     <el-dropdown-item>
                                         <el-button type="text" @click="showTarget(item)">编辑</el-button>
                                     </el-dropdown-item>
-                                    <el-dropdown-item>删除</el-dropdown-item>
+                                    <el-dropdown-item> 
+                                        <el-button type="text" @click="deleteTarget(item.id)">删除</el-button></el-dropdown-item>
                                 </el-dropdown-menu>
                             </el-dropdown>
                         </div>
@@ -64,7 +65,7 @@
 
 <script  lang="ts">
 import { Component, Vue } from 'nuxt-property-decorator'
-// import axios from 'axios'
+import axios from 'axios'
 @Component({
     // tslint:disable-next-line:trailing-comma
     components: {},
@@ -73,14 +74,8 @@ export default class Target extends Vue {
     data() {
         return {
             targetList: Array,
-            // currentTarget: {
-            //     id: Number,
-            //     targetName: String = "targetName",
-            //     description: String ="description",
-            // }
         }
     }
-
     currentTarget = new TargetDto()
     // id = 0;
     // targetName = '';
@@ -90,7 +85,7 @@ export default class Target extends Vue {
     created() { }
     async asyncData({ $axios }) {
         // console.log(this.targetList);
-        const data = await $axios.$get('/target/all')
+        const data = await $axios.$get('/api/target/all')
         console.log(data)
         return { targetList: data }
     }
@@ -110,13 +105,18 @@ export default class Target extends Vue {
     saveTarget() {
         console.log(this.data)
         if (this.currentTarget.id === 0) {
-           const putResult = this.$axios.$put('/target', this.currentTarget)
+           const putResult = axios.post('/api/target', this.currentTarget)
            console.log(putResult)
         } else {
-           const postResult = this.$axios.post('/target', this.currentTarget)
+           const postResult = axios.put('/api/target', this.currentTarget)
            console.log(postResult)
         }
         this.dialogFormVisible = false
+    }
+
+    deleteTarget(id: number){
+        const deleteResult = axios.delete(`/api/target/${id}`)
+        console.log(deleteResult)
     }
 }
 export class TargetDto {

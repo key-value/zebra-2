@@ -19,6 +19,10 @@ const config: StartupConfiguration = {
   ApplicationModule,
 }
 
+process.on('uncaughtException', err => {
+  console.log(err)
+})
+
 new Startup(config).main().then(
   async ({ app, server, nuxt }) => {
 

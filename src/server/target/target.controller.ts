@@ -1,7 +1,8 @@
-import { Get, Controller, Inject, Post, Body, Put } from '@nestjs/common'
+import { Get, Controller, Inject, Post, Body, Put, Delete, Param } from '@nestjs/common'
 import { Target } from '../models'
 import TargetService from './target.service'
 import { CreateTargetDto } from './target.dto'
+import { isNumber } from 'util'
 
 @Controller('target')
 export class TargetController {
@@ -26,8 +27,8 @@ export class TargetController {
   async update(@Body() body: CreateTargetDto) {
     this.targetService.update(body.id, body.targetName, body.description)
   }
-
-  async delete(id: number){
+  @Delete(':id')
+  async delete(@Param('id') id: number){
     this.targetService.delete(id)
   }
 }
