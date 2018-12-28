@@ -1,23 +1,21 @@
 <template>
     <div>
-        <el-row :gutter="12">
+        <el-row :gutter="24">
             <el-col :span="6" v-for="(item, index) in targetList" :key="index">
                 <el-card shadow="hover">
                     <div slot="header" class="clearfix">
                         <span>{{item.targetName}}</span>
-                        <div style="float: right; padding: 3px 0">
-                            <el-dropdown>
+                        <div style="float: right; padding: 0">
+                            <el-dropdown  >
                                 <span class="el-dropdown-link">
-                                    下拉菜单
+                                    操作
                                     <i class="el-icon-arrow-down el-icon--right"></i>
                                 </span>
                                 <el-dropdown-menu slot="dropdown">
-                                    <el-dropdown-item></el-dropdown-item>
-                                    <el-dropdown-item>
-                                        <el-button type="text" @click="showTarget(item)">编辑</el-button>
+                                    <el-dropdown-item @click.native="showTarget(item)" >
+                                        编辑
                                     </el-dropdown-item>
-                                    <el-dropdown-item> 
-                                        <el-button type="text" @click="deleteTarget(item.id)">删除</el-button></el-dropdown-item>
+                                    <el-dropdown-item  @click.native="deleteTarget(item.id)"> 删除</el-dropdown-item>
                                 </el-dropdown-menu>
                             </el-dropdown>
                         </div>
@@ -26,8 +24,8 @@
                 </el-card>
             </el-col>
             <el-col :span="6">
-                <el-card shadow="hover">
-                    <el-button type="text" @click="showTarget(null)">打开嵌套表单的 Dialog</el-button>
+                <el-card @click.native="showTarget(null)" shadow="hover">
+                    新增
                 </el-card>
             </el-col>
         </el-row>
@@ -86,9 +84,12 @@ export default class Target extends Vue {
     async asyncData({ $axios }) {
         // console.log(this.targetList);
         const data = await $axios.$get('/api/target/all')
-        console.log(data)
         return { targetList: data }
     }
+    handleCommand(target: TargetDto) {
+       this.showTarget(target)
+    }
+
     showTarget(target) {
         if (target == null) {
             this.currentTarget.targetName = ''
