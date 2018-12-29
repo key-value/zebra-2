@@ -6,16 +6,22 @@
                     <div slot="header" class="clearfix">
                         <span>{{item.targetName}}</span>
                         <div style="float: right; padding: 0">
-                            <el-dropdown  >
+                            <el-dropdown>
                                 <span class="el-dropdown-link">
                                     操作
                                     <i class="el-icon-arrow-down el-icon--right"></i>
                                 </span>
                                 <el-dropdown-menu slot="dropdown">
-                                    <el-dropdown-item @click.native="showTarget(item)" >
-                                        编辑
-                                    </el-dropdown-item>
-                                    <el-dropdown-item  @click.native="deleteTarget(item.id)"> 删除</el-dropdown-item>
+                                    <el-dropdown-item @click.native="showTarget(item)">编辑</el-dropdown-item>
+                    <el-popover placement="top" width="160" v-model="item.visible">
+                        <p>确认删除这个目标吗 ?</p>
+                        <div style="text-align: right; margin: 0">
+                            <el-button size="mini" type="text" @click="item.visible = false">取消</el-button>
+                            <el-button type="primary" size="mini" @click="deleteTarget(item.id)">确定</el-button>
+                        </div>
+                                    <el-dropdown-item slot="reference">删除</el-dropdown-item>
+       
+                    </el-popover>
                                 </el-dropdown-menu>
                             </el-dropdown>
                         </div>
@@ -24,9 +30,7 @@
                 </el-card>
             </el-col>
             <el-col :span="6">
-                <el-card @click.native="showTarget(null)" shadow="hover">
-                    新增
-                </el-card>
+                <el-card @click.native="showTarget(null)" shadow="hover">新增</el-card>
             </el-col>
         </el-row>
 
@@ -87,7 +91,7 @@ export default class Target extends Vue {
         return { targetList: data }
     }
     handleCommand(target: TargetDto) {
-       this.showTarget(target)
+        this.showTarget(target)
     }
 
     showTarget(target) {
@@ -106,16 +110,21 @@ export default class Target extends Vue {
     saveTarget() {
         console.log(this.data)
         if (this.currentTarget.id === 0) {
-           const putResult = axios.post('/api/target', this.currentTarget)
-           console.log(putResult)
+            const putResult = axios.post('/api/target', this.currentTarget)
+            console.log(putResult)
         } else {
-           const postResult = axios.put('/api/target', this.currentTarget)
-           console.log(postResult)
+            const postResult = axios.put('/api/target', this.currentTarget)
+            console.log(postResult)
         }
         this.dialogFormVisible = false
+
     }
 
-    deleteTarget(id: number){
+    async refreshTarget(){
+        await axios.get('/api/target/all')
+    }
+
+    deleteTarget(id: number) {
         const deleteResult = axios.delete(`/api/target/${id}`)
         console.log(deleteResult)
     }
@@ -124,6 +133,7 @@ export class TargetDto {
     id: number = 0
     targetName: string = ''
     description: string = ''
+    visible: boolean = false
 }
 </script>
 
