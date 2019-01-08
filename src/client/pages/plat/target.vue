@@ -13,15 +13,22 @@
                                 </span>
                                 <el-dropdown-menu slot="dropdown">
                                     <el-dropdown-item @click.native="showTarget(item)">编辑</el-dropdown-item>
-                    <el-popover placement="top" width="160" v-model="item.visible">
-                        <p>确认删除这个目标吗 ?</p>
-                        <div style="text-align: right; margin: 0">
-                            <el-button size="mini" type="text" @click="item.visible = false">取消</el-button>
-                            <el-button type="primary" size="mini" @click="deleteTarget(item.id)">确定</el-button>
-                        </div>
-                                    <el-dropdown-item slot="reference">删除</el-dropdown-item>
-       
-                    </el-popover>
+                                    <!-- <el-popover placement="top" width="160" v-model="item.visible">
+                                        <p>确认删除这个目标吗 ?</p>
+                                        <div style="text-align: right; margin: 0">
+                                            <el-button
+                                                size="mini"
+                                                type="text"
+                                                @click="item.visible = false"
+                                            >取消</el-button>
+                                            <el-button
+                                                type="primary"
+                                                size="mini"
+                                                @click="deleteTarget(item.id)"
+                                            >确定</el-button>
+                                        </div>
+                                    </el-popover> -->
+                                        <el-dropdown-item slot="reference">删除</el-dropdown-item>
                                 </el-dropdown-menu>
                             </el-dropdown>
                         </div>
@@ -78,6 +85,7 @@ export default class Target extends Vue {
             targetList: Array,
         }
     }
+    targetList: any = new Array()
     currentTarget = new TargetDto()
     // id = 0;
     // targetName = '';
@@ -107,7 +115,7 @@ export default class Target extends Vue {
         this.dialogFormVisible = true
     }
 
-    saveTarget() {
+    async saveTarget() {
         console.log(this.data)
         if (this.currentTarget.id === 0) {
             const putResult = axios.post('/api/target', this.currentTarget)
@@ -117,11 +125,13 @@ export default class Target extends Vue {
             console.log(postResult)
         }
         this.dialogFormVisible = false
-
+        await this.refreshTarget()
     }
 
-    async refreshTarget(){
-        await axios.get('/api/target/all')
+    async refreshTarget() {
+        const a = await axios.get('/api/target/all')
+        this.targetList = null
+        this.targetList = a
     }
 
     deleteTarget(id: number) {
@@ -133,7 +143,6 @@ export class TargetDto {
     id: number = 0
     targetName: string = ''
     description: string = ''
-    visible: boolean = false
 }
 </script>
 
