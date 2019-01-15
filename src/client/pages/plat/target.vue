@@ -13,22 +13,8 @@
                                 </span>
                                 <el-dropdown-menu slot="dropdown">
                                     <el-dropdown-item @click.native="showTarget(item)">编辑</el-dropdown-item>
-                                    <!-- <el-popover placement="top" width="160" v-model="item.visible">
-                                        <p>确认删除这个目标吗 ?</p>
-                                        <div style="text-align: right; margin: 0">
-                                            <el-button
-                                                size="mini"
-                                                type="text"
-                                                @click="item.visible = false"
-                                            >取消</el-button>
-                                            <el-button
-                                                type="primary"
-                                                size="mini"
-                                                @click="deleteTarget(item.id)"
-                                            >确定</el-button>
-                                        </div>
-                                    </el-popover> -->
-                                        <el-dropdown-item slot="reference">删除</el-dropdown-item>
+
+                                    <el-dropdown-item @click.native="deleteTarget(item.id)">删除</el-dropdown-item>
                                 </el-dropdown-menu>
                             </el-dropdown>
                         </div>
@@ -116,27 +102,33 @@ export default class Target extends Vue {
     }
 
     async saveTarget() {
-        console.log(this.data)
+        console.log(111111)
         if (this.currentTarget.id === 0) {
-            const putResult = axios.post('/api/target', this.currentTarget)
-            console.log(putResult)
+           await axios.post('/api/target', this.currentTarget)
         } else {
-            const postResult = axios.put('/api/target', this.currentTarget)
-            console.log(postResult)
+            await axios.put('/api/target', this.currentTarget)
         }
+        this.refreshTarget()
         this.dialogFormVisible = false
-        await this.refreshTarget()
     }
 
     async refreshTarget() {
-        const a = await axios.get('/api/target/all')
-        this.targetList = null
-        this.targetList = a
+
+           await axios.get('/api/target/all').then(v => {
+                console.log(v.data)
+                this.targetList = [...v.data]
+            })
+
+        // for (const target of newList.data) {
+        //     this.targetList.push(target)
+        // }
+        // newList.data.forEach(element => {
+        //     this.targetList.push(element)
+        // })
     }
 
-    deleteTarget(id: number) {
-        const deleteResult = axios.delete(`/api/target/${id}`)
-        console.log(deleteResult)
+    async deleteTarget(id: number) {
+        const deleteResult = axios.delete(`/api/target/${id}`).then(v => this.refreshTarget())
     }
 }
 export class TargetDto {

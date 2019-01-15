@@ -10,8 +10,9 @@ export default class TargetService {
     private readonly targetRepository: Repository<Target>,
   ) {}
 
-  async getAll(): Promise<Target[]> {
-    return await this.targetRepository.find()
+   async getAll(): Promise<Target[]> {
+    const a = await this.targetRepository.find()
+    return a
   }
 
   async add(name: string, description?: string) {
@@ -20,6 +21,7 @@ export default class TargetService {
     target.description = description
     target.state = 0
     const installResult = await this.targetRepository.insert(target)
+    const a = await this.targetRepository.find()
     console.log(installResult)
   }
 
@@ -30,7 +32,10 @@ export default class TargetService {
     }
     target.targetName = name
     target.description = description
-    this.targetRepository.save(target)
+    console.log(target)
+    await this.targetRepository.save(target)
+    const a = await this.targetRepository.findOne(id)
+    console.log(a)
   }
 
   async delete(id: any) {

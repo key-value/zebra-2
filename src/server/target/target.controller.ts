@@ -16,19 +16,24 @@ export class TargetController {
   }
   @Get('all')
   async getAll(): Promise<Target[]> {
-    return await this.targetService.getAll()
+    const a = this.targetService.getAll()
+    console.log(a)
+    return a
   }
 
   @Post()
   async add(@Body() body: CreateTargetDto) {
-    this.targetService.add(body.targetName, body.description)
+    await this.targetService.add(body.targetName, body.description)
+    console.log('add')
   }
   @Put()
   async update(@Body() body: CreateTargetDto) {
-    this.targetService.update(body.id, body.targetName, body.description)
+    await this.targetService.update(body.id, body.targetName, body.description)
+    console.log('update')
   }
   @Delete(':id')
   async delete(@Param('id') id: number){
-    this.targetService.delete(id)
+    await this.targetService.delete(id)
+    console.log('update')
   }
 }

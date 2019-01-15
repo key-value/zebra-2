@@ -26,7 +26,7 @@ module.exports = {
     color: '#3B8070'
   },
   // specify build directory
-  buildDir: '/src/server/nuxt',
+  buildDir: './build/src/server/nuxt',
   // specify nuxt source directory
   srcDir: 'src/client',
   /*
