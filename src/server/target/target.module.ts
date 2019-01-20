@@ -1,8 +1,8 @@
-import { TypeOrmModule } from '@nestjs/typeorm';
-import { Module } from '@nestjs/common';
-import { TargetController } from './target.controller';
-import { Target } from '../models';
-import TargetService from './target.service';
+import { TypeOrmModule } from '@nestjs/typeorm'
+import { Module } from '@nestjs/common'
+import { TargetController } from './target.controller'
+import { Target } from '../models'
+import TargetService from './target.service'
 
 @Module({
   imports: [TypeOrmModule.forFeature([Target])],

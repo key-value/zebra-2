@@ -9,6 +9,4 @@ export default class Task extends BaseModelVm {
   public platTitle: string
   @Column()
   public description: string
-  @Column()
-  public dueDate: Date
 }

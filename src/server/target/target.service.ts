@@ -11,8 +11,7 @@ export default class TargetService {
   ) {}
 
    async getAll(): Promise<Target[]> {
-    const a = await this.targetRepository.find()
-    return a
+    return await this.targetRepository.find()
   }
 
   async add(name: string, description?: string) {
@@ -20,9 +19,7 @@ export default class TargetService {
     target.targetName = name
     target.description = description
     target.state = 0
-    const installResult = await this.targetRepository.insert(target)
-    const a = await this.targetRepository.find()
-    console.log(installResult)
+    await this.targetRepository.insert(target)
   }
 
   async update(id: number, name: string , description: string){
@@ -32,17 +29,14 @@ export default class TargetService {
     }
     target.targetName = name
     target.description = description
-    console.log(target)
     await this.targetRepository.save(target)
-    const a = await this.targetRepository.findOne(id)
-    console.log(a)
   }
 
   async delete(id: any) {
     const target = await this.targetRepository.findOne(id)
     if (target == null){
-      throw new Error('Method not implemented.')
+      return
     }
-    this.targetRepository.remove(target)
+    await this.targetRepository.remove(target)
   }
 }

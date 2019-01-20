@@ -14,4 +14,6 @@ export default class Step extends BaseModelVm {
   public index: number
   @Column()
   public taskId: number
+  @Column()
+  public completeDate: Date
 }
