@@ -4,6 +4,8 @@ import { AppService } from './app.service'
 import { TargetModule } from './target/target.module'
 import { TypeOrmModule } from '@nestjs/typeorm'
 import { PlanModule } from './plan/plan.module'
+import { StepModule } from './step/step.module';
+import { TaskModule } from './task/task.module';
 
 @Module({
   imports: [
@@ -20,6 +22,8 @@ import { PlanModule } from './plan/plan.module'
       cache: false,
     }),
     PlanModule,
+    StepModule,
+    TaskModule,
   ],
 controllers: [AppController],
   providers : [AppService],

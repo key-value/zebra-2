@@ -2,17 +2,15 @@ import { Get, Controller, Inject, Post, Body, Put, Delete, Param } from '@nestjs
 import { Target } from '../models'
 import TargetService from './target.service'
 import { CreateTargetDto } from './target.dto'
+import { ApiUseTags } from '@nestjs/swagger'
 
+@ApiUseTags('target')
 @Controller('target')
 export class TargetController {
   constructor(
     private readonly targetService: TargetService,
   ) {}
 
-  @Get()
-  root(): string {
-    return '1111'
-  }
   @Get('all')
   async getAll(): Promise<Target[]> {
     return await this.targetService.getAll()
