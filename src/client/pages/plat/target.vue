@@ -102,7 +102,6 @@ export default class Target extends Vue {
     }
 
     async saveTarget() {
-        console.log(111111)
         if (this.currentTarget.id === 0) {
            await axios.post('/api/target', this.currentTarget)
         } else {

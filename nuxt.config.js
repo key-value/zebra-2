@@ -36,9 +36,9 @@ module.exports = {
   /*
    ** Plugins to load before mounting the App
    */
-  plugins: [  '@/plugins/element-ui','~/plugins/axios'],
+  plugins: ['@/plugins/element-ui', '~/plugins/axios'],
   // specify additional nuxt modules
-  modules: ['@nuxtjs/axios','~/modules/typescript.ts'],
+  modules: ['@nuxtjs/axios', '~/modules/typescript.ts'],
   axios: {
     // prefix: '/api/',
     proxy: true, // Can be also an object with default options
@@ -46,6 +46,22 @@ module.exports = {
   },
 
   proxy: {
-      '/api': { target: 'http://localhost:4200/api'}
+    '/api': {
+      target: 'http://localhost:4200/api'
+    }
+  },
+  build: {
+    filenames: {
+      chunk: '[name].js'
+    },
+    extend(config, ctx) {
+      const path = require('path');
+      // Run ESLint on save
+      if (ctx.isDev && ctx.isClient) {
+        if (ctx.isDev && ctx.isClient) {
+          config.devtool = '#source-map'
+        }
+      }
+    }
   }
 };
