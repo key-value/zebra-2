@@ -10,6 +10,10 @@ export class TaskService {
       private readonly stepRepository: Repository<Task>,
     ) {}
 
+    async get(id: number): Promise<Task> {
+      return await this.stepRepository.findOne(id)
+    }
+
     async getAll(): Promise<Task[]> {
       return await this.stepRepository.find()
     }

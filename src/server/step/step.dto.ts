@@ -1,6 +1,6 @@
 import { ApiModelProperty, ApiModelPropertyOptional } from '@nestjs/swagger'
 
-export class CreateStep{
+export class CreateStepDto{
 
     @ApiModelPropertyOptional()
     public stepName: string

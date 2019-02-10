@@ -11,7 +11,11 @@ export class TaskController {
       private readonly taskService: TaskService,
     ) {}
 
-    @Get('all')
+    @Get(`:id`)
+    async getOne(@Param('id')id: number): Promise<Task> {
+      return await this.taskService.get(id)
+    }
+    @Get()
     async getAll(): Promise<Task[]> {
       return await this.taskService.getAll()
     }
@@ -20,9 +24,9 @@ export class TaskController {
     async add(@Body() body: CreateTaskDto) {
       await this.taskService.add(body.targetName)
     }
-    @Put()
-    async update(@Body() body: CreateTaskDto) {
-      await this.taskService.update(body.id, body.targetName)
+    @Put(':id')
+    async update(@Param('id') id: number, @Body() body: CreateTaskDto) {
+      await this.taskService.update(id, body.targetName)
     }
     @Delete(':id')
     async delete(@Param('id') id: number){

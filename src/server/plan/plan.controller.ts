@@ -18,11 +18,11 @@ import { ModelUtility } from '../shared/model.utility'
 export class PlanController {
   constructor(private readonly planService: PlanService) {}
 
-  @Get()
-  root(): string {
-    return '1111'
+  @Get(`:id`)
+  async getOne(@Param('id')id: number): Promise<Plan> {
+    return await this.planService.get(id)
   }
-  @Get('all')
+  @Get()
   async getAll(): Promise<Plan[]> {
     return await this.planService.getAll()
   }
@@ -32,10 +32,10 @@ export class PlanController {
     const plan = ModelUtility.merge(new Plan(), body)
     await this.planService.add(plan)
   }
-  @Put()
-  async update(@Body() body: CreatePlanDto) {
+  @Put(':id')
+  async update(@Param('id') id: number, @Body() body: CreatePlanDto) {
     const plan = ModelUtility.merge(new Plan(), body)
-    await this.planService.update(plan)
+    await this.planService.update(id, plan)
   }
   @Delete(':id')
   async delete(@Param('id') id: number) {

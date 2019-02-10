@@ -1,21 +1,20 @@
 <template>
     <div>
         <el-row>
-          <el-col :span="4">
-            <el-button @click.native="showPlan(null)" shadow="hover">新增</el-button>
+            <el-col :span="4">
+                <el-button @click.native="showPlan(null)" shadow="hover">新增</el-button>
             </el-col>
-
-
         </el-row>
         <el-row>
-        <el-col>
-            <el-table :data="planList" stripe style="width: 100%">
-                <el-table-column prop="beginTime" label="日期" width="180"></el-table-column>
-                <el-table-column prop="planName" label="姓名" width="180"></el-table-column>
-                <el-table-column prop="description" label="地址"></el-table-column>
-            </el-table>
-        </el-col></el-row>
-        
+            <el-col>
+                <el-table :data="planList" stripe style="width: 100%">
+                    <el-table-column prop="beginTime" label="日期" width="180"></el-table-column>
+                    <el-table-column prop="planName" label="计划名称" width="180"></el-table-column>
+                    <el-table-column prop="description" label="描述"></el-table-column>
+                </el-table>
+            </el-col>
+        </el-row>
+
         <el-dialog
             title="更新数据"
             :visible.sync="dialogFormVisible"
@@ -23,20 +22,52 @@
             width="45%"
         >
             <el-form :model="currentPlan">
-                <el-form-item label="活动名称" :label-width="formLabelWidth">
-                    <el-input
-                        v-model="currentPlan.planName"
-                        autocomplete="off"
-                        placeholder="目标"
-                    ></el-input>
+                <el-form-item label="计划名称" :label-width="formLabelWidth">
+                    <el-input v-model="currentPlan.planName" autocomplete="off" placeholder="计划代号"></el-input>
                 </el-form-item>
-                <el-form-item label="活动区域" :label-width="formLabelWidth">
-                    <el-input
-                        :rows="3"
-                        type="textarea"
-                        v-model="currentPlan.description"
-                        placeholder="描述下目标"
-                    ></el-input>
+                <el-form-item label="预期成果" :label-width="formLabelWidth">
+                    <el-input v-model="currentPlan.expectations" placeholder="希望达到的成果"></el-input>
+                </el-form-item>
+                <el-form-item label="最低成果" :label-width="formLabelWidth">
+                    <el-input v-model="currentPlan.minExpectations" placeholder="至少要做出的成果"></el-input>
+                </el-form-item>
+                <el-form-item label="启动时间" :label-width="formLabelWidth">
+                    <div>
+                        <el-date-picker
+                            class="input-box"
+                            v-model="currentPlan.beginTime"
+                            type="date"
+                            placeholder="选择日期"
+                            :picker-options="pickerOptions1"
+                        ></el-date-picker>
+                    </div>
+                </el-form-item>
+                <el-form-item label="预期结束时间" :label-width="formLabelWidth">
+                    <div>
+                        <el-date-picker
+                            class="input-box"
+                            v-model="currentPlan.endTime"
+                            type="date"
+                            placeholder="选择日期"
+                            :picker-options="pickerOptions1"
+                        ></el-date-picker>
+                    </div>
+                </el-form-item>
+                <el-form-item label="执行目标" :label-width="formLabelWidth">
+                    <div>
+                        <el-select v-model="currentPlan.targetId"
+                                class="input-box" placeholder="请选择">
+                            <el-option
+                                v-for="item in targetList"
+                                :key="item.id"
+                                :label="item.targetName"
+                                :value="item.id"
+                            ></el-option>
+                        </el-select>
+                    </div>
+                </el-form-item>
+                <el-form-item label="描述" :label-width="formLabelWidth">
+                    <el-input type="textarea" v-model="currentPlan.description" placeholder="描述下计划"></el-input>
                 </el-form-item>
             </el-form>
             <div slot="footer" class="dialog-footer">
@@ -55,11 +86,39 @@ import axios from 'axios'
 export default class Plan extends Vue {
     async asyncData({ $axios }) {
         // console.log(this.targetList);
-        const data = await $axios.$get('/api/plan/all')
-        return { planList: data }
+        const data = await $axios.$get('/api/plan')
+        const targetData = await $axios.$get('/api/target/all')
+        return {            planList: data,
+            targetList: targetData        }
     }
     planList: any = new Array()
     currentPlan: PlanDto = new PlanDto()
+
+    pickerOptions1: any = {
+        disabledDate(time) {
+            return time.getTime() < Date.now()
+        },
+        shortcuts: [{
+            text: '今天',
+            onClick(picker) {
+                picker.$emit('pick', new Date())
+            },
+        }, {
+            text: '明天',
+            onClick(picker) {
+                const date = new Date()
+                date.setTime(date.getTime() + 3600 * 1000 * 24)
+                picker.$emit('pick', date)
+            },
+        }, {
+            text: '下周',
+            onClick(picker) {
+                const date = new Date()
+                date.setTime(date.getTime() + 3600 * 1000 * 24 * 7)
+                picker.$emit('pick', date)
+            },
+        }],
+    }
 
     dialogFormVisible: boolean = false
     formLabelWidth = '120px'
@@ -79,9 +138,9 @@ export default class Plan extends Vue {
 
     async savePlan() {
         if (this.currentPlan.id === 0) {
-           await axios.post('/api/plan', this.currentPlan)
+            await axios.post('/api/plan', this.currentPlan)
         } else {
-            await axios.put('/api/plan', this.currentPlan)
+            await axios.put(`/api/plan/${this.currentPlan.id}`, this.currentPlan)
         }
         this.dialogFormVisible = false
     }
@@ -97,9 +156,9 @@ export class PlanDto {
 </script>
 
 <style scoped>
- .el-row {
+.el-row {
     margin-bottom: 20px;
-  }
+}
 
 .text {
     font-size: 14px;
@@ -111,5 +170,9 @@ export class PlanDto {
 
 .box-card {
     width: 480px;
+}
+
+.input-box {
+    width: 100%;
 }
 </style>

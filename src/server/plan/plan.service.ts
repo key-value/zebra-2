@@ -11,6 +11,10 @@ export default class PlanService {
     private readonly planRepository: Repository<Plan>,
   ) {}
 
+  async get(id: number): Promise<Plan> {
+    return await this.planRepository.findOne(id)
+  }
+
   async getAll(): Promise<Plan[]> {
     return await this.planRepository.find()
   }
@@ -19,8 +23,8 @@ export default class PlanService {
     await this.planRepository.insert(plat)
   }
 
-  async update(newPlan: Plan) {
-    const plan = await this.planRepository.findOne(newPlan.id)
+  async update(id: number, newPlan: Plan) {
+    let plan = await this.planRepository.findOne(id)
     if (plan == null) {
       throw new Error('Method not implemented.')
     }

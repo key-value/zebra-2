@@ -10,6 +10,10 @@ export class StepService {
     private readonly stepRepository: Repository<Step>,
   ) {}
 
+  async get(id: number): Promise<Step> {
+    return await this.stepRepository.findOne(id)
+  }
+
   async getAll(): Promise<Step[]> {
     return await this.stepRepository.find()
   }
@@ -22,22 +26,15 @@ export class StepService {
     return await this.stepRepository.findOne(id)
   }
 
-  async add(name: string) {
-    const step = new Step()
-    step.stepName = name
+  async add(step: Step) {
     await this.stepRepository.insert(step)
   }
 
-  async update(id: number, name: string) {
-    const target = await this.stepRepository.findOne(id)
-    if (target == null) {
-      throw new Error('Method not implemented.')
-    }
-    target.stepName = name
-    await this.stepRepository.save(target)
+  async update(step: Step) {
+    await this.stepRepository.save(step)
   }
 
-  async delete(id: any) {
+  async delete(id: number) {
     const target = await this.stepRepository.findOne(id)
     if (target == null) {
       return
