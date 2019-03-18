@@ -12,7 +12,7 @@ import { Plan } from '../models'
 import PlanService from './plan.service'
 import { ApiUseTags } from '@nestjs/swagger'
 import { CreatePlanDto } from './plan.dto'
-import { ModelUtility } from '../shared/model.utility'
+import { ModelUtility } from '../../common/model.utility'
 @ApiUseTags('plan')
 @Controller('plan')
 export class PlanController {

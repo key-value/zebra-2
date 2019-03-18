@@ -6,7 +6,7 @@ export default class Task extends BaseModelVm {
   @Column()
   public planId: number
   @Column()
-  public planTitle: string
+  public taskTitle: string
   @Column()
   public description: string
 }

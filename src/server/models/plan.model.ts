@@ -6,8 +6,6 @@ import { BaseModelVm } from './../shared/base.model'
 export default class Plan extends BaseModelVm {
   constructor() {
     super()
-    this.expected = ''
-    this.expectedNumber = 0
   }
   @Column()
   public planName: string

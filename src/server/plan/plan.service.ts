@@ -1,4 +1,4 @@
-import { ModelUtility } from './../shared/model.utility'
+import { ModelUtility } from '../../common/model.utility'
 import { Injectable } from '@nestjs/common'
 import { Plan } from '../models'
 import { InjectRepository } from '@nestjs/typeorm'
@@ -20,6 +20,8 @@ export default class PlanService {
   }
 
   async add(plat: Plan) {
+    plat.expected = ''
+    plat.expectedNumber = 0
     await this.planRepository.insert(plat)
   }
 

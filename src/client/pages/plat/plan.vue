@@ -2,15 +2,31 @@
     <div>
         <el-row>
             <el-col :span="4">
-                <el-button @click.native="showPlan(null)" shadow="hover">新增</el-button>
+                <el-button @click.native="showPlan(-1 , null)" shadow="hover">新增</el-button>
             </el-col>
         </el-row>
         <el-row>
             <el-col>
                 <el-table :data="planList" stripe style="width: 100%">
-                    <el-table-column prop="beginTime" label="日期" width="180"></el-table-column>
-                    <el-table-column prop="planName" label="计划名称" width="180"></el-table-column>
-                    <el-table-column prop="description" label="描述"></el-table-column>
+                    <el-table-column
+                        :formatter="formatDate"
+                        prop="beginTime"
+                        label="启动日期"
+                        width="180"
+                    ></el-table-column>
+                    <el-table-column prop="planName" label="名称" width="120"></el-table-column>
+                    <el-table-column prop="expectations" label="成果"></el-table-column>
+                    <el-table-column prop="targetName" label="执行目标"></el-table-column>
+                    <el-table-column align="right" width="160">
+                        <template slot-scope="scope">
+                            <el-button size="mini" @click="showPlan(scope.$index,scope.row)">Edit</el-button>
+                            <el-button
+                                size="mini"
+                                type="danger"
+                                @click="handleDelete(scope.$index, scope.row)"
+                            >Delete</el-button>
+                        </template>
+                    </el-table-column>
                 </el-table>
             </el-col>
         </el-row>
@@ -55,8 +71,11 @@
                 </el-form-item>
                 <el-form-item label="执行目标" :label-width="formLabelWidth">
                     <div>
-                        <el-select v-model="currentPlan.targetId"
-                                class="input-box" placeholder="请选择">
+                        <el-select
+                            v-model="currentPlan.targetId"
+                            class="input-box"
+                            placeholder="请选择"
+                        >
                             <el-option
                                 v-for="item in targetList"
                                 :key="item.id"
@@ -81,22 +100,34 @@
 <script lang="ts">
 import { Component, Inject, Model, Prop, Vue, Watch } from 'nuxt-property-decorator'
 import axios from 'axios'
+import { formatDate } from '../../../Common/dateUtility'
+import { ModelUtility } from '../../../Common/model.utility'
+import { Message } from 'element-ui'
 
-@Component({})
+@Component({
+})
 export default class Plan extends Vue {
     async asyncData({ $axios }) {
         // console.log(this.targetList);
         const data = await $axios.$get('/api/plan')
         const targetData = await $axios.$get('/api/target/all')
+        data.forEach(element => {
+            const target = targetData.find(x => x.id === element.targetId)
+            if (target) {
+                element.targetName = target.targetName
+            }
+        })
         return {            planList: data,
-            targetList: targetData        }
+            targetList: targetData,
+                }
     }
+    targetList: any = new Array()
     planList: any = new Array()
     currentPlan: PlanDto = new PlanDto()
 
     pickerOptions1: any = {
         disabledDate(time) {
-            return time.getTime() < Date.now()
+            return time.getTime() <= Date.now()
         },
         shortcuts: [{
             text: '今天',
@@ -123,16 +154,30 @@ export default class Plan extends Vue {
     dialogFormVisible: boolean = false
     formLabelWidth = '120px'
 
-    showPlan(plan: PlanDto) {
-        if (plan == null) {
-            this.currentPlan.planName = ''
-            this.currentPlan.description = ''
-            this.currentPlan.id = 0
-        } else {
-            this.currentPlan.planName = plan.planName
-            this.currentPlan.description = plan.description
-            this.currentPlan.id = plan.id
+    formatDate(row, column, cellValue, index) {
+        const daterc = row[column.property]
+        if (daterc != null) {
+            const dateMat = new Date(daterc)
+
+            return formatDate(dateMat, 'yyyy-MM-dd')
         }
+
+    }
+    handleEdit(index, row) {
+        console.log(index, row)
+    }
+    async handleDelete(index, row) {
+        await axios.delete(`/api/plan/${row.id}`)
+    }
+    showPlan(index, item: PlanDto) {
+        let plan: any
+        if (index < 0) {
+            this.currentPlan = new PlanDto()
+        } else {
+            plan = this.planList[index]
+            ModelUtility.merge(this.currentPlan, plan)
+        }
+
         this.dialogFormVisible = true
     }
 
@@ -143,8 +188,22 @@ export default class Plan extends Vue {
             await axios.put(`/api/plan/${this.currentPlan.id}`, this.currentPlan)
         }
         this.dialogFormVisible = false
+        Message('处理成功')
+        this.refreshPlanList()
     }
 
+    async refreshPlanList() {
+        await axios.get('/api/plan').then(v => {
+            console.log(v.data)
+            this.planList = [...v.data]
+            this.planList.forEach(element => {
+                const target = this.targetList.find(x => x.id === element.targetId)
+                if (target) {
+                    element.targetName = target.targetName
+                }
+            })
+        })
+    }
 }
 
 export class PlanDto {

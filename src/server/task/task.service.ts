@@ -28,7 +28,7 @@ export class TaskService {
 
     async add(name: string) {
       const step = new Task()
-      step.planTitle = name
+      step.taskTitle = name
       await this.stepRepository.insert(step)
     }
 
@@ -37,7 +37,7 @@ export class TaskService {
       if (target == null) {
         throw new Error('Method not implemented.')
       }
-      target.planTitle = name
+      target.taskTitle = name
       await this.stepRepository.save(target)
     }
 

@@ -3,7 +3,7 @@ import { ApiUseTags } from '@nestjs/swagger'
 import { CreateStepDto } from './step.dto'
 import { Step } from '../models'
 import { StepService } from './step.service'
-import { ModelUtility } from '../shared/model.utility'
+import { ModelUtility } from '../../common/model.utility'
 
 @ApiUseTags('step')
 @Controller('step')

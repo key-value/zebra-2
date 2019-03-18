@@ -61,6 +61,8 @@
 <script  lang="ts">
 import { Component, Vue } from 'nuxt-property-decorator'
 import axios from 'axios'
+import { Message } from 'element-ui'
+
 @Component({
     // tslint:disable-next-line:trailing-comma
     components: {},
@@ -109,6 +111,7 @@ export default class Target extends Vue {
         }
         this.refreshTarget()
         this.dialogFormVisible = false
+        Message('这是一条消息提示')
     }
 
     async refreshTarget() {
@@ -117,13 +120,6 @@ export default class Target extends Vue {
                 console.log(v.data)
                 this.targetList = [...v.data]
             })
-
-        // for (const target of newList.data) {
-        //     this.targetList.push(target)
-        // }
-        // newList.data.forEach(element => {
-        //     this.targetList.push(element)
-        // })
     }
 
     async deleteTarget(id: number) {
