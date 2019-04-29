@@ -22,11 +22,11 @@ export class TaskController {
 
     @Post()
     async add(@Body() body: CreateTaskDto) {
-      await this.taskService.add(body.targetName)
+      await this.taskService.add(body.taskTitle, body.planId, body.description)
     }
     @Put(':id')
     async update(@Param('id') id: number, @Body() body: CreateTaskDto) {
-      await this.taskService.update(id, body.targetName)
+      await this.taskService.update(id, body.taskTitle, body.planId, body.description)
     }
     @Delete(':id')
     async delete(@Param('id') id: number){

@@ -26,18 +26,22 @@ export class TaskService {
       return await this.stepRepository.findOne(id)
     }
 
-    async add(name: string) {
+    async add(name: string, planId: number, description: string) {
       const step = new Task()
       step.taskTitle = name
+      step.planId = planId
+      step.description = description
       await this.stepRepository.insert(step)
     }
 
-    async update(id: number, name: string) {
+    async update(id: number, name: string, planId: number, description: string) {
       const target = await this.stepRepository.findOne(id)
       if (target == null) {
         throw new Error('Method not implemented.')
       }
       target.taskTitle = name
+      target.planId = planId
+      target.description = description
       await this.stepRepository.save(target)
     }
 

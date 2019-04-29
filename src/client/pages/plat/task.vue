@@ -36,8 +36,22 @@
             width="45%"
         >
             <el-form :model="currentTask">
-                <el-form-item label="计划名称" :label-width="formLabelWidth">
-                    <el-input v-model="currentTask.taskTitle" autocomplete="off" placeholder="计划代号"></el-input>
+                <el-form-item label="任务名称" :label-width="formLabelWidth">
+                    <el-input v-model="currentTask.taskTitle" autocomplete="off" placeholder="任务名称"></el-input>
+                </el-form-item>
+                <el-form-item label="所属计划" :label-width="formLabelWidth">
+                        <el-select
+                            v-model="currentTask.planId"
+                            class="input-box"
+                            placeholder="请选择"
+                        >
+                            <el-option
+                                v-for="item in planList"
+                                :key="item.id"
+                                :label="item.planName"
+                                :value="item.id"
+                            ></el-option>
+                        </el-select>
                 </el-form-item>
                 <el-form-item label="描述" :label-width="formLabelWidth">
                     <el-input type="textarea" v-model="currentTask.description" placeholder="描述下计划"></el-input>
@@ -58,6 +72,8 @@ import { formatDate } from '../../../Common/dateUtility'
 import { ModelUtility } from '../../../Common/model.utility'
 import { Message } from 'element-ui'
 
+@Component({
+})
 export default class Task extends Vue {
     async asyncData({ $axios }) {
         // console.log(this.targetList);
