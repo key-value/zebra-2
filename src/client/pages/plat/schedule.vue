@@ -1,7 +1,14 @@
 <template>
 <div class="nav_main">
     <ul  class="nav_mine" >
-                <li class="nav_item" v-for="(item, index) in targetList" :key="index">{{item.targetName}}</li>
+                <li class="nav_item" v-for="(item, index) in targetList" :key="index">
+                    <div>{{item.targetName}}</div>
+                    <ul>
+                        <li>111</li>
+                        <li>222</li>
+                    </ul>
+                    <div>1111</div>
+                    </li>
     </ul>
     </div>
 </template>
@@ -128,19 +135,24 @@ export class PlanDto {
     padding: 15px 20px;
     height: auto;
     display:  inline-flex;
-    align-items: center;
     flex-wrap: nowrap;
     overflow-x: auto;
 }
 
 .nav_mine .nav_item {
     border: 1px solid #aca9a7;
-    border-radius: 40px;
+    border-radius: 3px;
     color: #aca9a7;
     margin-right: 22px;
-    font-size: 24px;
+    font-size: 20px;
     padding: 4px 18px;
     list-style: none;
     white-space: nowrap;
+    max-height: 100%;
+    padding: 10px 8px 8px;
+    width: 272px;
+    text-align: left;
+    font-size: 14px;
 }
+
 </style>
