@@ -1,15 +1,17 @@
 <template>
-<div class="nav_main">
-    <ul  class="nav_mine" >
-                <li class="nav_item" v-for="(item, index) in targetList" :key="index">
+    <div class="nav_main">
+        <ul class="nav_mine">
+            <li class="nav_item" v-for="(item, index) in targetList" :key="index">
+                <div class="card_header">
                     <div>{{item.targetName}}</div>
-                    <ul>
-                        <li>111</li>
-                        <li>222</li>
-                    </ul>
-                    <div>1111</div>
-                    </li>
-    </ul>
+                </div>
+                <ul class="card_body">
+                    <li  class="list_card_details"><div class="list_card_title">111</div></li>
+                    <li class="list_card_details"><div class="list_card_title">222</div></li>
+                </ul>
+                <div class="card_floor">1111</div>
+            </li>
+        </ul>
     </div>
 </template>
 
@@ -22,8 +24,8 @@ import { Message } from 'element-ui'
 
 @Component({
 })
-    export default  class Schedule extends Vue {
-           async asyncData({ $axios }) {
+export default class Schedule extends Vue {
+    async asyncData({ $axios }) {
         // console.log(this.targetList);
         const data = await $axios.$get('/api/plan')
         const targetData = await $axios.$get('/api/target/all')
@@ -35,7 +37,7 @@ import { Message } from 'element-ui'
         })
         return {            planList: data,
             targetList: targetData,
-                }
+        }
     }
     targetList: any = new Array()
     planList: any = new Array()
@@ -120,7 +122,7 @@ import { Message } from 'element-ui'
             })
         })
     }
-    }
+}
 export class PlanDto {
     id: number = 0
     beginTime: Date = new Date()
@@ -130,29 +132,51 @@ export class PlanDto {
 </script>
 
 <style scoped>
-
 .nav_mine {
     padding: 15px 20px;
     height: auto;
-    display:  inline-flex;
+    display: inline-flex;
     flex-wrap: nowrap;
     overflow-x: auto;
 }
 
 .nav_mine .nav_item {
-    border: 1px solid #aca9a7;
-    border-radius: 3px;
-    color: #aca9a7;
+    border: #aca9a7;
+    border-radius: 4px;
     margin-right: 22px;
-    font-size: 20px;
-    padding: 4px 18px;
     list-style: none;
     white-space: nowrap;
     max-height: 100%;
-    padding: 10px 8px 8px;
     width: 272px;
     text-align: left;
-    font-size: 14px;
+    background-color: #dfe1e6
 }
 
+.card_header {
+    padding: 10px 8px 8px;
+}
+
+.card_body {
+    list-style: none;
+    white-space: nowrap;
+    padding: 0px 4px;
+    margin: 0px 4px;
+}
+
+.list_card_details{
+    border-radius: 4px;
+    background-color: white;
+    padding: 6px 8px 2px;
+    box-shadow: 0 1px 12px 0 rgba(0, 0, 0, 0.1);
+    margin-bottom: 8px;
+    min-height: 20px;
+}
+.list_card_title{
+    margin: 0px 0px 4px
+}
+
+.card_floor {
+    color: #aca9a7;
+    padding: 8px;
+}
 </style>
