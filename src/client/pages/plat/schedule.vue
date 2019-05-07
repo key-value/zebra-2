@@ -43,32 +43,6 @@ export default class Schedule extends Vue {
     planList: any = new Array()
     currentPlan: PlanDto = new PlanDto()
 
-    pickerOptions1: any = {
-        disabledDate(time) {
-            return time.getTime() <= Date.now()
-        },
-        shortcuts: [{
-            text: '今天',
-            onClick(picker) {
-                picker.$emit('pick', new Date())
-            },
-        }, {
-            text: '明天',
-            onClick(picker) {
-                const date = new Date()
-                date.setTime(date.getTime() + 3600 * 1000 * 24)
-                picker.$emit('pick', date)
-            },
-        }, {
-            text: '下周',
-            onClick(picker) {
-                const date = new Date()
-                date.setTime(date.getTime() + 3600 * 1000 * 24 * 7)
-                picker.$emit('pick', date)
-            },
-        }],
-    }
-
     dialogFormVisible: boolean = false
     formLabelWidth = '120px'
 
@@ -153,6 +127,7 @@ export class PlanDto {
 }
 
 .card_header {
+    cursor: pointer;
     padding: 10px 8px 8px;
 }
 
@@ -164,6 +139,7 @@ export class PlanDto {
 }
 
 .list_card_details{
+    cursor: pointer;
     border-radius: 4px;
     background-color: white;
     padding: 6px 8px 2px;
@@ -176,7 +152,8 @@ export class PlanDto {
 }
 
 .card_floor {
-    color: #aca9a7;
+    cursor: pointer;
+    color: #6b778c;
     padding: 8px;
 }
 </style>

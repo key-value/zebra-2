@@ -19,6 +19,10 @@ export default class PlanService {
     return await this.planRepository.find()
   }
 
+  async getAllbyTargetId(targetId: number): Promise<Plan[]> {
+    return await this.planRepository.find({ targetId})
+  }
+
   async add(plat: Plan) {
     plat.expected = ''
     plat.expectedNumber = 0
