@@ -5,9 +5,9 @@
                 <div class="card_header">
                     <div>{{item.targetName}}</div>
                 </div>
-                <ul class="card_body">
-                    <li  class="list_card_details"><div class="list_card_title">111</div></li>
-                    <li class="list_card_details"><div class="list_card_title">222</div></li>
+                <ul class="card_body" >
+                    <li  class="list_card_details"  v-for="(plan, sindex) in item.planList" :key="sindex">
+                        <div class="list_card_title">{{plan.planName}}</div></li>
                 </ul>
                 <div class="card_floor">1111</div>
             </li>
@@ -28,7 +28,7 @@ export default class Schedule extends Vue {
     async asyncData({ $axios }) {
         // console.log(this.targetList);
         const data = await $axios.$get('/api/plan')
-        const targetData = await $axios.$get('/api/target/all')
+        const targetData = await $axios.$get('/api/target/allLeaf')
         data.forEach(element => {
             const target = targetData.find(x => x.id === element.targetId)
             if (target) {
