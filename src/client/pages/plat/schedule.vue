@@ -5,10 +5,21 @@
                 <div class="card_header">
                     <div>{{item.targetName}}</div>
                 </div>
-                <ul class="card_body" >
-                    <li  class="list_card_details"  v-for="(plan, sindex) in item.planList" :key="sindex">
-                        <div class="list_card_title">{{plan.planName}}</div></li>
-                </ul>
+                <draggable class="list-group" :list="targetList" group="people">
+                    <ul class="card_body">
+                        <li
+                            class="list_card_details"
+                            draggable="true"
+                            @dragstart="handleDragStart($event)"
+                            @dragover="allowDrop($event)"
+                            @drop="drop($event)"
+                            v-for="(plan, sindex) in item.planList"
+                            :key="sindex"
+                        >
+                            <div class="list_card_title">{{plan.planName}}</div>
+                        </li>
+                    </ul>
+                </draggable>
                 <div class="card_floor">1111</div>
             </li>
         </ul>
@@ -21,6 +32,7 @@ import axios from 'axios'
 import { formatDate } from '../../../Common/dateUtility'
 import { ModelUtility } from '../../../Common/model.utility'
 import { Message } from 'element-ui'
+import draggable from 'vuedraggable'
 
 @Component({
 })
@@ -45,7 +57,6 @@ export default class Schedule extends Vue {
 
     dialogFormVisible: boolean = false
     formLabelWidth = '120px'
-
     formatDate(row, column, cellValue, index) {
         const daterc = row[column.property]
         if (daterc != null) {
@@ -60,6 +71,18 @@ export default class Schedule extends Vue {
     }
     async handleDelete(index, row) {
         await axios.delete(`/api/plan/${row.id}`)
+    }
+    // 完成拖动
+    drop($event) {
+        console.log('drop' + event)
+    }
+    // 开始拖动
+    handleDragStart(event) {
+        console.log('handleDragStart' + event)
+    }
+    // 拖动中
+    allowDrop() {
+        console.log(event)
     }
     showPlan(index, item: PlanDto) {
         let plan: any
@@ -123,7 +146,7 @@ export class PlanDto {
     max-height: 100%;
     width: 272px;
     text-align: left;
-    background-color: #dfe1e6
+    background-color: #dfe1e6;
 }
 
 .card_header {
@@ -138,7 +161,7 @@ export class PlanDto {
     margin: 0px 4px;
 }
 
-.list_card_details{
+.list_card_details {
     cursor: pointer;
     border-radius: 4px;
     background-color: white;
@@ -146,9 +169,13 @@ export class PlanDto {
     box-shadow: 0 1px 12px 0 rgba(0, 0, 0, 0.1);
     margin-bottom: 8px;
     min-height: 20px;
+    cursor: move;
 }
-.list_card_title{
-    margin: 0px 0px 4px
+.list_card_details.over {
+    border: 2px dashed #000;
+}
+.list_card_title {
+    margin: 0px 0px 4px;
 }
 
 .card_floor {
