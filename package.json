@@ -38,7 +38,7 @@
     "ts-loader": "^5.3.0",
     "tslint": "^5.11.0",
     "tslint-config-prettier": "^1.16.0",
-    "typeorm": "^0.2.9"
+    "typeorm": "^0.2.25"
   },
   "devDependencies": {
     "@nestjs/swagger": "^2.5.1",
