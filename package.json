@@ -15,7 +15,7 @@
   },
   "dependencies": {
     "@nestjs/common": "^5.4.0",
-    "@nestjs/core": "^5.4.0",
+    "@nestjs/core": "^9.2.1",
     "@nestjs/typeorm": "^5.2.2",
     "@nuxtjs/axios": "^5.3.6",
     "@nuxtjs/dotenv": "^1.2.1",
@@ -24,7 +24,7 @@
     "class-validator": "^0.9.1",
     "cross-env": "^5.2.0",
     "element-ui": "^2.4.6",
-    "express": "^4.16.3",
+    "express": "^4.18.2",
     "lodash": "^4.17.11",
     "morgan": "^1.9.1",
     "mysql": "^2.16.0",
@@ -41,7 +41,7 @@
     "typeorm": "^0.2.9"
   },
   "devDependencies": {
-    "@nestjs/swagger": "^2.5.1",
+    "@nestjs/swagger": "^6.1.4",
     "@nestjs/testing": "^5.4.1",
     "@types/express-session": "^1.15.11",
     "@types/lodash": "^4.14.118",
