@@ -21,7 +21,7 @@
     "@nuxtjs/dotenv": "^1.2.1",
     "@types/morgan": "^1.7.35",
     "class-transformer": "^0.2.0",
-    "class-validator": "^0.9.1",
+    "class-validator": "^0.14.0",
     "cross-env": "^5.2.0",
     "element-ui": "^2.4.6",
     "express": "^4.16.3",
